@@ -9,6 +9,6 @@
  *
  * Please add any necessary parameters to the functions
 */
-void handle_input_friends(char *input);
+void handle_input_friends(char *input, void *data);
 
 #endif // FRIENDS_H

@@ -2,11 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+// #include "graph.h"
 
 static const char *db_path = "users.db";
 
 static char **users;
 static uint16_t users_number;
+
+uint16_t get_users_number()
+{
+	return users_number;
+}
 
 void init_users(void)
 {

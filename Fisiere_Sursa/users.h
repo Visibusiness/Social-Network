@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+uint16_t get_users_number();
+
 /**
  * Initializes the user list
 */

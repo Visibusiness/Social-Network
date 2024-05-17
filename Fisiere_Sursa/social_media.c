@@ -9,6 +9,7 @@
 #include "friends.h"
 #include "posts.h"
 #include "feed.h"
+#include "graph.h"
 
 /**
  * Initializez every task based on which task we are running
@@ -34,6 +35,12 @@ void init_tasks(void)
 int main(void)
 {
 	init_users();
+	graph_t *social_media = new_graph();
+	social_media->nodes = get_users_number();
+	social_media->friends = malloc(social_media->nodes * sizeof(list_t *));
+	
+	for(uint16_t i=0; i<social_media->nodes; i++)
+		social_media->friends[i] = new_list();
 
 	init_tasks();
 
@@ -46,7 +53,7 @@ int main(void)
 			break;
 
 		#ifdef TASK_1
-		handle_input_friends(input);
+		handle_input_friends(input, social_media);
 		#endif
 
 		#ifdef TASK_2

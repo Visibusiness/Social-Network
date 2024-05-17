@@ -4,11 +4,13 @@
 
 #include "friends.h"
 #include "users.h"
+#include "graph.h"
 
-void handle_input_friends(char *input)
+void handle_input_friends(char *input, void *data)
 {
 	char *commands = strdup(input);
 	char *cmd = strtok(commands, "\n ");
+	graph_t *social_media = (graph_t *)data;
 
 	if (!cmd)
 		return;
@@ -19,6 +21,11 @@ void handle_input_friends(char *input)
 		cmd = strtok(NULL, "\n ");
 		char *name2 = strdup(cmd);
 		
+		uint16_t a = get_user_id(name1);
+		uint16_t b = get_user_id(name2);
+		printf("%d %d\n", a, b);
+		add_connection(social_media, a, b);
+
 		free(name1);
 		free(name2);
 	}
