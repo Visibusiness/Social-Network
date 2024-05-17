@@ -1,15 +1,139 @@
-==13653== Memcheck, a memory error detector
-==13653== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==13653== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
-==13653== Command: ./feed
-==13653== Parent PID: 13541
-==13653== 
-==13653== 
-==13653== HEAP SUMMARY:
-==13653==     in use at exit: 0 bytes in 0 blocks
-==13653==   total heap usage: 6,345 allocs, 6,345 frees, 121,187 bytes allocated
-==13653== 
-==13653== All heap blocks were freed -- no leaks are possible
-==13653== 
-==13653== For lists of detected and suppressed errors, rerun with: -s
-==13653== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==3132== Memcheck, a memory error detector
+==3132== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==3132== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
+==3132== Command: ./feed
+==3132== Parent PID: 3021
+==3132== 
+==3132== Invalid read of size 1
+==3132==    at 0x4846C86: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x4903C9D: strdup (strdup.c:41)
+==3132==    by 0x109C07: handle_input_friends (friends.c:24)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==3132== 
+==3132== 
+==3132== Process terminating with default action of signal 11 (SIGSEGV)
+==3132==  Access not within mapped region at address 0x0
+==3132==    at 0x4846C86: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x4903C9D: strdup (strdup.c:41)
+==3132==    by 0x109C07: handle_input_friends (friends.c:24)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132==  If you believe this happened as a result of a stack
+==3132==  overflow in your program's main thread (unlikely but
+==3132==  possible), you can try to increase the size of the
+==3132==  main thread stack using the --main-stacksize= flag.
+==3132==  The main thread stack size used in this run was 8388608.
+==3132== 
+==3132== HEAP SUMMARY:
+==3132==     in use at exit: 29,706 bytes in 1,085 blocks
+==3132==   total heap usage: 1,147 allocs, 62 frees, 35,048 bytes allocated
+==3132== 
+==3132== 7 bytes in 1 blocks are still reachable in loss record 1 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x4903CA9: strdup (strdup.c:42)
+==3132==    by 0x109BDF: handle_input_friends (friends.c:22)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 8 bytes in 1 blocks are still reachable in loss record 2 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x4903CA9: strdup (strdup.c:42)
+==3132==    by 0x109BB7: handle_input_friends (friends.c:20)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 16 bytes in 1 blocks are still reachable in loss record 3 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x1096B8: new_graph (graph.c:80)
+==3132==    by 0x109EB1: main (social_media.c:38)
+==3132== 
+==3132== 16 bytes in 1 blocks are still reachable in loss record 4 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x4903CA9: strdup (strdup.c:42)
+==3132==    by 0x109B82: handle_input_friends (friends.c:15)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 40 bytes in 10 blocks are still reachable in loss record 5 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x10978B: add_connection (graph.c:97)
+==3132==    by 0x109C5B: handle_input_friends (friends.c:29)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 40 bytes in 10 blocks are still reachable in loss record 6 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x109799: add_connection (graph.c:98)
+==3132==    by 0x109C5B: handle_input_friends (friends.c:29)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 240 bytes in 10 blocks are still reachable in loss record 7 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x10946B: new_node (graph.c:5)
+==3132==    by 0x1097BB: add_connection (graph.c:101)
+==3132==    by 0x109C5B: handle_input_friends (friends.c:29)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 240 bytes in 10 blocks are still reachable in loss record 8 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x10946B: new_node (graph.c:5)
+==3132==    by 0x1097EA: add_connection (graph.c:102)
+==3132==    by 0x109C5B: handle_input_friends (friends.c:29)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 500 bytes in 1 blocks are still reachable in loss record 9 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x109EC4: main (social_media.c:42)
+==3132== 
+==3132== 3,831 bytes in 518 blocks are still reachable in loss record 10 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x109301: init_users (users.c:35)
+==3132==    by 0x109E98: main (social_media.c:37)
+==3132== 
+==3132== 4,096 bytes in 1 blocks are still reachable in loss record 11 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x48D941B: _IO_file_doallocate (filedoalloc.c:101)
+==3132==    by 0x48E804F: _IO_doallocbuf (genops.c:347)
+==3132==    by 0x48E804F: _IO_doallocbuf (genops.c:342)
+==3132==    by 0x48E6E0B: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==3132==    by 0x48E8101: _IO_default_uflow (genops.c:362)
+==3132==    by 0x48DAF49: _IO_getline_info (iogetline.c:60)
+==3132==    by 0x48D9D7B: fgets (iofgets.c:53)
+==3132==    by 0x109EE0: main (social_media.c:44)
+==3132== 
+==3132== 4,096 bytes in 1 blocks are still reachable in loss record 12 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x48D941B: _IO_file_doallocate (filedoalloc.c:101)
+==3132==    by 0x48E804F: _IO_doallocbuf (genops.c:347)
+==3132==    by 0x48E804F: _IO_doallocbuf (genops.c:342)
+==3132==    by 0x48E70E7: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==3132==    by 0x48E622D: _IO_new_file_xsputn (fileops.c:1243)
+==3132==    by 0x48E622D: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==3132==    by 0x48B9408: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+==3132==    by 0x48B94BF: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+==3132==    by 0x48C2D98: __vfprintf_internal (vfprintf-internal.c:1460)
+==3132==    by 0x48B8BDA: printf (printf.c:33)
+==3132==    by 0x109C7A: handle_input_friends (friends.c:30)
+==3132==    by 0x109EFE: main (social_media.c:51)
+==3132== 
+==3132== 4,144 bytes in 1 blocks are still reachable in loss record 13 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x10929E: init_users (users.c:28)
+==3132==    by 0x109E98: main (social_media.c:37)
+==3132== 
+==3132== 4,144 bytes in 1 blocks are still reachable in loss record 14 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x1096D4: new_graph (graph.c:82)
+==3132==    by 0x109EB1: main (social_media.c:38)
+==3132== 
+==3132== 8,288 bytes in 518 blocks are still reachable in loss record 15 of 15
+==3132==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3132==    by 0x109516: new_list (graph.c:31)
+==3132==    by 0x109705: new_graph (graph.c:84)
+==3132==    by 0x109EB1: main (social_media.c:38)
+==3132== 
+==3132== LEAK SUMMARY:
+==3132==    definitely lost: 0 bytes in 0 blocks
+==3132==    indirectly lost: 0 bytes in 0 blocks
+==3132==      possibly lost: 0 bytes in 0 blocks
+==3132==    still reachable: 29,706 bytes in 1,085 blocks
+==3132==         suppressed: 0 bytes in 0 blocks
+==3132== 
+==3132== For lists of detected and suppressed errors, rerun with: -s
+==3132== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

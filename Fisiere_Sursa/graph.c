@@ -20,6 +20,8 @@ void link(node_t *x, node_t *y)
 {
     if(x)
         x->next = y;
+    else
+        printf("linkinginginging aiurea\n");
     if(y)
         y->prev = x;    
 }
@@ -92,12 +94,12 @@ void free_graph(graph_t *x)
 
 void add_connection(graph_t *x, unsigned int a, unsigned int b)
 {
-    int *u = malloc(sizeof(int)); 
-    int *v = malloc(sizeof(int));
+    unsigned int *u = malloc(sizeof(unsigned int)); 
+    unsigned int *v = malloc(sizeof(unsigned int));
     *u = a;
     *v = b;
-    add_in_list(x->friends[a], new_node(u));
-    add_in_list(x->friends[b], new_node(v));
+    add_in_list(x->friends[a], new_node(v));
+    add_in_list(x->friends[b], new_node(u));
 }
 
 void remove_connection(graph_t *x, unsigned int a, unsigned int b)
@@ -106,7 +108,49 @@ void remove_connection(graph_t *x, unsigned int a, unsigned int b)
     remove_node(x->friends[b], a);
 }
 
+void print_vecini(graph_t *x, unsigned int cr)
+{
+    return;
+    printf("Vecini lui %d sunt\n", cr);
+    node_t *node = x->friends[cr]->head;
+    while(node) {
+        unsigned int vecin = *((int *)node->data);
+        printf("%d este vecin al lui %d\n", vecin, cr);
+        node = node->next;
+        // node = NULL;
+    }
+    printf("\n");
+}
+
 int get_distance(graph_t *x, unsigned int a, unsigned int b)
 {
-    
+    unsigned int *used = calloc(x->nodes, sizeof(unsigned int));
+    unsigned int *in_use = calloc(x->nodes, sizeof(unsigned int));
+    unsigned int first=0, last=0;
+    int must_return = 0;
+    in_use[0]=a;
+    used[a]=1;
+
+    while(first <= last) {
+        unsigned int cr=in_use[first];
+        // printf("sunt in %d\n", cr);
+        node_t *node = x->friends[cr]->head;
+        while(node) {
+            unsigned int vecin = *((unsigned int *)node->data);
+            // printf("%d este vecin al lui %d\n", vecin, cr);
+            if(vecin == b) {
+                must_return = used[cr] + 1;
+                node = NULL;
+            } else if(used[vecin] == 0) {
+                used[vecin] = used[cr] + 1;
+                in_use[++last] = vecin;
+            }
+            if(node)
+                node = node->next;
+        }
+        first++;
+    }
+    free(in_use);
+    free(used);
+    return must_return;
 }

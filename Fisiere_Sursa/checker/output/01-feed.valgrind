@@ -1,34 +1,15 @@
-==16941== Memcheck, a memory error detector
-==16941== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==16941== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
-==16941== Command: ./feed
-==16941== Parent PID: 16849
-==16941== 
-==16941== 
-==16941== Process terminating with default action of signal 2 (SIGINT)
-==16941==    at 0x495D7BF: open (open64.c:41)
-==16941==    by 0x48E65B1: _IO_file_open (fileops.c:188)
-==16941==    by 0x48E676A: _IO_file_fopen@@GLIBC_2.2.5 (fileops.c:280)
-==16941==    by 0x48D9F68: __fopen_internal (iofopen.c:75)
-==16941==    by 0x109227: init_users (users.c:19)
-==16941==    by 0x109C57: main (social_media.c:37)
-==16941== 
-==16941== HEAP SUMMARY:
-==16941==     in use at exit: 472 bytes in 1 blocks
-==16941==   total heap usage: 1 allocs, 0 frees, 472 bytes allocated
-==16941== 
-==16941== 472 bytes in 1 blocks are still reachable in loss record 1 of 1
-==16941==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==16941==    by 0x48D9F0A: __fopen_internal (iofopen.c:65)
-==16941==    by 0x109227: init_users (users.c:19)
-==16941==    by 0x109C57: main (social_media.c:37)
-==16941== 
-==16941== LEAK SUMMARY:
-==16941==    definitely lost: 0 bytes in 0 blocks
-==16941==    indirectly lost: 0 bytes in 0 blocks
-==16941==      possibly lost: 0 bytes in 0 blocks
-==16941==    still reachable: 472 bytes in 1 blocks
-==16941==         suppressed: 0 bytes in 0 blocks
-==16941== 
-==16941== For lists of detected and suppressed errors, rerun with: -s
-==16941== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==3106== Memcheck, a memory error detector
+==3106== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==3106== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
+==3106== Command: ./feed
+==3106== Parent PID: 3021
+==3106== 
+==3106== 
+==3106== HEAP SUMMARY:
+==3106==     in use at exit: 0 bytes in 0 blocks
+==3106==   total heap usage: 1,294 allocs, 1,294 frees, 38,824 bytes allocated
+==3106== 
+==3106== All heap blocks were freed -- no leaks are possible
+==3106== 
+==3106== For lists of detected and suppressed errors, rerun with: -s
+==3106== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

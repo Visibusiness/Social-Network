@@ -25,14 +25,18 @@ void handle_input_friends(char *input, void *data)
 	uint16_t a = get_user_id(name1);
 	uint16_t b = get_user_id(name2);
 
-	if (!strcmp(cmd, "add")) {	
+	if (!strcmp(cmd, "add")) {
 		add_connection(social_media, a, b);
 		printf("Added connection %s - %s\n", name1, name2);
+		print_vecini(social_media ,a);
 	}
 	else if (!strcmp(cmd, "distance")) {
-		int distance = get_distance(social_media, a, b);
+		int distance = -1;
+		distance = get_distance(social_media, a, b) - 1;
 		if(distance != -1)
 			printf("The distance between %s - %s is %d\n", name1, name2, distance);
+		else
+			printf("There is no way to get from %s to %s\n", name1, name2);
 	} else if (!strcmp(cmd, "suggestions"))
 		(void)cmd;
 		// TODO: Add function

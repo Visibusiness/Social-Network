@@ -24,6 +24,7 @@ struct graph_t
     list_t **friends;
 };
 
+void print_vecini(graph_t *x, unsigned int cr);
 node_t *new_node(void *data);
 node_t *remove_node(list_t *x, int n);
 node_t *remove_from_list(list_t *list , void *data);
