@@ -6,14 +6,22 @@
 #define MAX_STRING_SIZE 256
 #define HMAX 10
 
+
+void link(node_t *x, node_t *y)
+{
+    if(y)
+        x->next = y;
+    if(x)
+        y->prev = x;    
+}
+
+
 list_t *ll_create(unsigned int data_size)
 {
     list_t *ll = malloc(sizeof(*ll));
-
     ll->head = NULL;
     ll->data_size = data_size;
     ll->size = 0;
-
     return ll;
 }
 
@@ -24,10 +32,7 @@ list_t *ll_create(unsigned int data_size)
 unsigned int ll_get_size(list_t *list)
 {
     if (!list)
-    {
         return -1;
-    }
-
     return list->size;
 }
 
@@ -40,6 +45,7 @@ unsigned int ll_get_size(list_t *list)
 void ll_free(list_t **pp_list)
 {
     node_t *currNode;
+
     if (!pp_list || !*pp_list)
         return;
 
@@ -55,106 +61,17 @@ void ll_free(list_t **pp_list)
     *pp_list = NULL;
 }
 
-/*
- * Atentie! Aceasta functie poate fi apelata doar pe liste ale caror noduri STIM
- * ca stocheaza int-uri. Functia afiseaza toate valorile int stocate in nodurile
- * din lista inlantuita separate printr-un spatiu.
- */
-void ll_print_int(list_t *list)
-{
-    node_t *curr;
-
-    if (!list)
-    {
-        return;
-    }
-
-    curr = list->head;
-    while (curr != NULL)
-    {
-        printf("%d ", *((int *)curr->data));
-        curr = curr->next;
-    }
-
-    printf("\n");
-}
-
-/*
- * Atentie! Aceasta functie poate fi apelata doar pe liste ale caror noduri STIM
- * ca stocheaza string-uri. Functia afiseaza toate string-urile stocate in
- * nodurile din lista inlantuita, separate printr-un spatiu.
- */
-void ll_print_string(list_t *list)
-{
-    node_t *curr;
-
-    if (!list)
-    {
-        return;
-    }
-
-    curr = list->head;
-    while (curr != NULL)
-    {
-        printf("%s ", (char *)curr->data);
-        curr = curr->next;
-    }
-
-    printf("\n");
-}
-
-
-/*
- * Functii de comparare a cheilor:
- */
-int compare_function_ints(void *a, void *b)
-{
-    int int_a = *((int *)a);
-    int int_b = *((int *)b);
-
-    if (int_a == int_b)
-    {
-        return 0;
-    }
-    else if (int_a < int_b)
-    {
-        return -1;
-    }
-    else
-    {
-        return 1;
-    }
-}
-
 int compare_function_strings(void *a, void *b)
 {
     char *str_a = (char *)a;
     char *str_b = (char *)b;
-
     return strcmp(str_a, str_b);
 }
 
-/*
- * Functii de hashing:
- */
-unsigned int hash_function_int(void *a)
-{
-    /*
-     * Credits: https://stackoverflow.com/a/12996028/7883884
-     */
-    unsigned int uint_a = *((unsigned int *)a);
-
-    uint_a = ((uint_a >> 16u) ^ uint_a) * 0x45d9f3b;
-    uint_a = ((uint_a >> 16u) ^ uint_a) * 0x45d9f3b;
-    uint_a = (uint_a >> 16u) ^ uint_a;
-    return uint_a;
-}
-
+/* Functii de hashing: */
 unsigned int hash_function_string(void *a)
 {
-    /*
-     * Credits: http://www.cse.yorku.ca/~oz/hash.html
-     */
+    /* Credits: http://www.cse.yorku.ca/~oz/hash.html */
     unsigned char *puchar_a = (unsigned char *)a;
     unsigned long hash = 5381;
     int c;
