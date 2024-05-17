@@ -6,6 +6,21 @@
 #define MAX_STRING_SIZE 256
 #define HMAX 10
 
+void add_in_list(list_t *list, node_t* node)
+{
+    link(node, list->head);
+    list->head = node;
+    list->size++;
+}
+
+node_t *new_node(void *data)
+{
+    node_t *x = malloc(sizeof(node_t));
+    x->data = data;
+    x->next = NULL;
+    x->prev = NULL;
+    return x;
+}
 
 void link(node_t *x, node_t *y)
 {
@@ -24,19 +39,6 @@ list_t *new_list(unsigned int data_size)
     return x;
 }
 
-list_t *ll_create(unsigned int data_size)
-{
-    list_t *ll = malloc(sizeof(*ll));
-    ll->head = NULL;
-    ll->data_size = data_size;
-    ll->size = 0;
-    return ll;
-}
-
-/*
- * Functia intoarce numarul de noduri din lista al carei pointer este trimis ca
- * parametru.
- */
 unsigned int ll_get_size(list_t *list)
 {
     if (!list)
@@ -44,25 +46,17 @@ unsigned int ll_get_size(list_t *list)
     return list->size;
 }
 
-/*
- * Procedura elibereaza memoria folosita de toate nodurile din lista, iar la
- * sfarsit, elibereaza memoria folosita de structura lista si actualizeaza la
- * NULL valoarea pointerului la care pointeaza argumentul (argumentul este un
- * pointer la un pointer).
- */
-void ll_free(list_t **pp_list)
+void ll_free(list_t **pp_list, void (*free_function)(void *))
 {
-    node_t *currNode;
-
     if (!pp_list || !*pp_list)
         return;
-
-    while (ll_get_size(*pp_list) > 0) {
-        currNode = ll_remove_nth_node(*pp_list, 0);
-        free(currNode->data);
-        currNode->data = NULL;
-        free(currNode);
-        currNode = NULL;
+    node_t *cr = (*pp_list)->head, *next;
+    while(cr)
+    {
+        next = cr->next;
+        free_function(cr->data);
+        free(cr);
+        cr = next;
     }
 
     free(*pp_list);
@@ -117,7 +111,7 @@ hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
     x->hmax = hmax;
     x->size = 0;
     for (int i = 0; i < x->hmax; i++)
-        x->buckets[i] = ll_create(sizeof(info));
+        x->buckets[i] = new_list(sizeof(info));
     return x;
 }
 
@@ -130,8 +124,7 @@ hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
 int ht_has_key(hashtable_t *x, void *key)
 {
     node_t *p = x->buckets[x->hash_function(key) % x->hmax]->head;
-    while (p != NULL)
-    {
+    while (p) {
         if (!x->compare_function(((info *)p->data)->key, key))
             return 1;
         p = p->next;
@@ -143,8 +136,7 @@ void *ht_get(hashtable_t *x, void *key)
 {
     list_t *lista = x->buckets[x->hash_function(key) % x->hmax];
     node_t *p = lista->head;
-    while (p != NULL)
-    {
+    while (p) {
         if (!x->compare_function(((info *)p->data)->key, key))
             return ((info *)p->data)->value;
         p = p->next;
@@ -179,6 +171,8 @@ void ht_put(hashtable_t *x, void *key, unsigned int key_size,
     data->value = malloc(value_size);
     memcpy(data->value, value, value_size);
     if (ht_has_key(x, key)) {
+        printf("eroare hashtable\n");
+        exit(-1);
         node_t *p = x->buckets[index]->head;
         while (p) {
             if (!x->compare_function(key, ((info *)p->data)->key)) {
@@ -190,8 +184,9 @@ void ht_put(hashtable_t *x, void *key, unsigned int key_size,
         return;
     }
     list_t *list = x->buckets[index];
-    ll_add_nth_node(list, 0, data);
-    free(data);
+    // ll_add_nth_node(list, 0, data);
+    add_in_list(list, new_node(data));
+    
     x->size++;
 }
 
