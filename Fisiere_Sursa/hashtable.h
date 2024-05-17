@@ -21,14 +21,13 @@ typedef struct list_t
 } list_t;
 
 node_t *new_node(void *data);
-
+node_t *remove_from_list(list_t *list , void *data, int (*compare_function)(void *, void *));
 list_t *new_list();
 void add_in_list(list_t *list, node_t* node);
 void link(node_t *x, node_t *y);
 list_t *ll_create(unsigned int data_size);
 node_t *ll_remove_nth_node(list_t *list, unsigned int n);
-unsigned int ll_get_size(list_t *list);
-void ll_free(list_t **pp_list);
+void ll_free(list_t **pp_list, void (*free_function)(void *));
 void ll_print_int(list_t *list);
 void ll_print_string(list_t *list);
 
@@ -56,24 +55,15 @@ struct hashtable_t
 
 int compare_function_ints(void *a, void *b);
 int compare_function_strings(void *a, void *b);
-
-unsigned int hash_function_int(void *a);
 unsigned int hash_function_string(void *a);
-
 void key_val_free_function(void *data);
 
 hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
                        int (*compare_function)(void *, void *),
                        void (*key_val_free_function)(void *));
-
 int ht_has_key(hashtable_t *x, void *key);
-
 void *ht_get(hashtable_t *x, void *key);
 void ht_put(hashtable_t *x, void *key, unsigned int key_size,
             void *value, unsigned int value_size);
-
 void ht_remove_entry(hashtable_t *x, void *key);
-
 void ht_free(hashtable_t *x);
-unsigned int ht_get_size(hashtable_t *ht);
-unsigned int ht_get_hmax(hashtable_t *ht);

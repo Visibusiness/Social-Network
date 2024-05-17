@@ -3,15 +3,6 @@
 #include <string.h>
 
 #include "hashtable.h"
-#define MAX_STRING_SIZE 256
-#define HMAX 10
-
-void add_in_list(list_t *list, node_t* node)
-{
-    link(node, list->head);
-    list->head = node;
-    list->size++;
-}
 
 node_t *new_node(void *data)
 {
@@ -39,11 +30,30 @@ list_t *new_list(unsigned int data_size)
     return x;
 }
 
-unsigned int ll_get_size(list_t *list)
+void add_in_list(list_t *list, node_t* node)
 {
-    if (!list)
-        return -1;
-    return list->size;
+    link(node, list->head);
+    list->head = node;
+    list->size++;
+}
+
+node_t *remove_from_list(list_t *list , void *data, int (*compare_function)(void *, void *))
+{
+    node_t *cr = list->head;
+    while(cr){
+        if(!compare_function(cr->data, data)) {
+            if(cr != list->head)
+                link(cr->prev, cr->next);
+            else {
+                list->head = cr->next;
+                list->head->prev = NULL;
+            }
+            list->size--;
+            return cr;
+        }
+        cr = cr->next;
+    }
+    return NULL;
 }
 
 void ll_free(list_t **pp_list, void (*free_function)(void *))
@@ -51,14 +61,12 @@ void ll_free(list_t **pp_list, void (*free_function)(void *))
     if (!pp_list || !*pp_list)
         return;
     node_t *cr = (*pp_list)->head, *next;
-    while(cr)
-    {
+    while(cr) {
         next = cr->next;
         free_function(cr->data);
         free(cr);
         cr = next;
     }
-
     free(*pp_list);
     *pp_list = NULL;
 }
@@ -70,7 +78,6 @@ int compare_function_strings(void *a, void *b)
     return strcmp(str_a, str_b);
 }
 
-/* Functii de hashing: */
 unsigned int hash_function_string(void *a)
 {
     /* Credits: http://www.cse.yorku.ca/~oz/hash.html */
@@ -84,21 +91,12 @@ unsigned int hash_function_string(void *a)
     return hash;
 }
 
-/*
- * Functie apelata pentru a elibera memoria ocupata de cheia si valoarea unei
- * perechi din hashtable. Daca cheia sau valoarea contin tipuri de date complexe
- * aveti grija sa eliberati memoria luand in considerare acest aspect.
- */
 void key_val_free_function(void *data)
 {
     free(((info *)data)->key);
     free(((info *)data)->value);
 }
 
-/*
- * Functie apelata dupa alocarea unui hashtable pentru a-l initializa.
- * Trebuie alocate si initializate si listele inlantuite.
- */
 hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
                        int (*compare_function)(void *, void *),
                        void (*key_val_free_function)(void *))
@@ -115,12 +113,6 @@ hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
     return x;
 }
 
-/*
- * Functie care intoarce:
- * 1, daca pentru cheia key a fost asociata anterior o valoare in hashtable
- * folosind functia put;
- * 0, altfel.
- */
 int ht_has_key(hashtable_t *x, void *key)
 {
     node_t *p = x->buckets[x->hash_function(key) % x->hmax]->head;
@@ -144,23 +136,6 @@ void *ht_get(hashtable_t *x, void *key)
     return NULL;
 }
 
-/*
- * Atentie! Desi cheia este trimisa ca un void pointer (deoarece nu se impune
- * tipul ei), in momentul in care se creeaza o noua intrare in hashtable (in
- * cazul in care cheia nu se gaseste deja in ht), trebuie creata o copie a
- * valorii la care pointeaza key si adresa acestei copii trebuie salvata in
- * structura info asociata intrarii din ht. Pentru a sti cati octeti trebuie
- * alocati si copiati, folositi parametrul key_size.
- *
- * Motivatie:
- * Este nevoie sa copiem valoarea la care pointeaza key deoarece dupa un apel
- * put(ht, key_actual, value_actual), valoarea la care pointeaza key_actual
- * poate fi alterata (de ex: *key_actual++). Daca am folosi direct adresa
- * pointerului key_actual, practic s-ar modifica din afara hashtable-ului cheia
- * unei intrari din hashtable. Nu ne dorim acest lucru, fiindca exista riscul sa
- * ajungem in situatia in care nu mai stim la ce cheie este inregistrata o
- * anumita valoare.
- */
 void ht_put(hashtable_t *x, void *key, unsigned int key_size,
             void *value, unsigned int value_size)
 {
@@ -173,57 +148,38 @@ void ht_put(hashtable_t *x, void *key, unsigned int key_size,
     if (ht_has_key(x, key)) {
         printf("eroare hashtable\n");
         exit(-1);
-        node_t *p = x->buckets[index]->head;
-        while (p) {
-            if (!x->compare_function(key, ((info *)p->data)->key)) {
-                free(((info *)p->data)->value);
-                ((info *)p->data)->value = data->value;
-            }
-            p = p->next;
-        }
-        return;
+        // node_t *p = x->buckets[index]->head;
+        // while (p) {
+        //     if (!x->compare_function(key, ((info *)p->data)->key)) {
+        //         free(((info *)p->data)->value);
+        //         ((info *)p->data)->value = data->value;
+        //     }
+        //     p = p->next;
+        // }
+        // return;
     }
-    list_t *list = x->buckets[index];
-    // ll_add_nth_node(list, 0, data);
-    add_in_list(list, new_node(data));
-    
+    add_in_list(x->buckets[index], new_node(data));
     x->size++;
 }
 
-/*
- * Procedura care elimina din hashtable intrarea asociata cheii key.
- * Atentie! Trebuie avuta grija la eliberarea intregii memorii folosite pentru o
- * intrare din hashtable (adica memoria pentru copia lui key --vezi observatia
- * de la procedura put--, pentru structura info si pentru structura Node din
- * lista inlantuita).
- */
 void ht_remove_entry(hashtable_t *x, void *key)
 {
     list_t *list = x->buckets[x->hash_function(key) % x->hmax];
     node_t *p = list->head;
-    int pos = 0;
     while (p && x->compare_function(key, ((info *)p->data)->key))
-    {
         p = p->next;
-        pos++;
-    }
-    node_t *q = ll_remove_nth_node(list, pos);
+    
+    node_t *q = remove_from_list(list, key, x->compare_function);
     key_val_free_function(q->data);
     free(q->data);
     free(q);
 }
 
-/*
- * Procedura care elibereaza memoria folosita de toate intrarile din hashtable,
- * dupa care elibereaza si memoria folosita pentru a stoca structura hashtable.
- */
 void ht_free(hashtable_t *x)
 {
-    for (int i = 0; i < x->hmax; i++)
-    {
+    for (int i = 0; i < x->hmax; i++) {
         node_t *p = x->buckets[i]->head, *aux;
-        while (p)
-        {
+        while (p) {
             aux = p->next;
             key_val_free_function(p->data);
             free(p->data);
@@ -234,18 +190,4 @@ void ht_free(hashtable_t *x)
     }
     free(x->buckets);
     free(x);
-}
-
-unsigned int ht_get_size(hashtable_t *ht)
-{
-    if (ht == NULL)
-        return 0;
-    return ht->size;
-}
-
-unsigned int ht_get_hmax(hashtable_t *ht)
-{
-    if (ht == NULL)
-        return 0;
-    return ht->hmax;
 }

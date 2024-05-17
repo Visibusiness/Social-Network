@@ -20,8 +20,12 @@ void add_node(graph *x, unsigned int node)
 
 void add_connection(graph *x, unsigned int a, unsigned int b)
 {
-    add_node(x->friends[a], new_node(&b, sizeof(int)));
-    add_node(x->friends[b], new_node(&a, sizeof(int)));
+    int *u = malloc(sizeof(int)); 
+    int *v = malloc(sizeof(int));
+    *u = a;
+    *v = b;
+    add_node(x->friends[a], new_node(u));
+    add_node(x->friends[b], new_node(v));
 }
 
 void remove_connection(graph *x, unsigned int a, unsigned int b)
