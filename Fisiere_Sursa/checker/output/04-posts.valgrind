@@ -1,0 +1,70 @@
+==16928== Memcheck, a memory error detector
+==16928== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==16928== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
+==16928== Command: ./posts
+==16928== Parent PID: 16849
+==16928== 
+==16928== Use of uninitialised value of size 8
+==16928==    at 0x109717: free_graph (graph.c:88)
+==16928==    by 0x109A04: main (social_media.c:66)
+==16928==  Uninitialised value was created by a heap allocation
+==16928==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==16928==    by 0x109673: new_graph (graph.c:78)
+==16928==    by 0x10999E: main (social_media.c:38)
+==16928== 
+==16928== Invalid read of size 4
+==16928==    at 0x109717: free_graph (graph.c:88)
+==16928==    by 0x109A04: main (social_media.c:66)
+==16928==  Address 0x206 is not stack'd, malloc'd or (recently) free'd
+==16928== 
+==16928== 
+==16928== Process terminating with default action of signal 11 (SIGSEGV)
+==16928==  Access not within mapped region at address 0x206
+==16928==    at 0x109717: free_graph (graph.c:88)
+==16928==    by 0x109A04: main (social_media.c:66)
+==16928==  If you believe this happened as a result of a stack
+==16928==  overflow in your program's main thread (unlikely but
+==16928==  possible), you can try to increase the size of the
+==16928==  main thread stack using the --main-stacksize= flag.
+==16928==  The main thread stack size used in this run was 8388608.
+==16928== 
+==16928== HEAP SUMMARY:
+==16928==     in use at exit: 16,544 bytes in 521 blocks
+==16928==   total heap usage: 1,070 allocs, 549 frees, 30,323 bytes allocated
+==16928== 
+==16928== 16 bytes in 1 blocks are still reachable in loss record 1 of 4
+==16928==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==16928==    by 0x109673: new_graph (graph.c:78)
+==16928==    by 0x10999E: main (social_media.c:38)
+==16928== 
+==16928== 4,096 bytes in 1 blocks are still reachable in loss record 2 of 4
+==16928==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==16928==    by 0x48D941B: _IO_file_doallocate (filedoalloc.c:101)
+==16928==    by 0x48E804F: _IO_doallocbuf (genops.c:347)
+==16928==    by 0x48E804F: _IO_doallocbuf (genops.c:342)
+==16928==    by 0x48E6E0B: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==16928==    by 0x48E8101: _IO_default_uflow (genops.c:362)
+==16928==    by 0x48DAF49: _IO_getline_info (iogetline.c:60)
+==16928==    by 0x48D9D7B: fgets (iofgets.c:53)
+==16928==    by 0x1099CD: main (social_media.c:44)
+==16928== 
+==16928== 4,144 bytes in 1 blocks are still reachable in loss record 3 of 4
+==16928==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==16928==    by 0x10968F: new_graph (graph.c:80)
+==16928==    by 0x10999E: main (social_media.c:38)
+==16928== 
+==16928== 8,288 bytes in 518 blocks are still reachable in loss record 4 of 4
+==16928==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==16928==    by 0x1094D1: new_list (graph.c:29)
+==16928==    by 0x1096C0: new_graph (graph.c:82)
+==16928==    by 0x10999E: main (social_media.c:38)
+==16928== 
+==16928== LEAK SUMMARY:
+==16928==    definitely lost: 0 bytes in 0 blocks
+==16928==    indirectly lost: 0 bytes in 0 blocks
+==16928==      possibly lost: 0 bytes in 0 blocks
+==16928==    still reachable: 16,544 bytes in 521 blocks
+==16928==         suppressed: 0 bytes in 0 blocks
+==16928== 
+==16928== For lists of detected and suppressed errors, rerun with: -s
+==16928== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

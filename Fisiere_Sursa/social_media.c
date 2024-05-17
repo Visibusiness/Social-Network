@@ -35,13 +35,8 @@ void init_tasks(void)
 int main(void)
 {
 	init_users();
-	graph_t *social_media = new_graph();
-	social_media->nodes = get_users_number();
-	social_media->friends = malloc(social_media->nodes * sizeof(list_t *));
+	graph_t *social_media = new_graph(get_users_number());
 	
-	for(uint16_t i=0; i<social_media->nodes; i++)
-		social_media->friends[i] = new_list();
-
 	init_tasks();
 
 	char *input = (char *)malloc(MAX_COMMAND_LEN);
@@ -67,6 +62,8 @@ int main(void)
 
 	free_users();
 	free(input);
+	free_graph(social_media);
+	free(social_media);
 
 	return 0;
 }

@@ -34,6 +34,7 @@ list_t *ll_create(unsigned int data_size);
 void ll_free(list_t **pp_list);
 
 graph_t *new_graph();
+void free_graph(graph_t *x);
 void add_connection(graph_t *x, unsigned int a, unsigned int b);
 void remove_connection(graph_t *x, unsigned int a, unsigned int b);
-void get_distance(graph_t *x, unsigned int a, unsigned int b);
+int get_distance(graph_t *x, unsigned int a, unsigned int b);

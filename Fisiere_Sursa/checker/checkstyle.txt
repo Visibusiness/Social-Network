@@ -1,0 +1,125 @@
+./users.h:3: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - uint16_t get_users_number() should probably be uint16_t get_users_number(void)
+./graph.h:11: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.h:12: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.h:17: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.h:18: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.h:23: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.h:24: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.h:29: ERROR:SPACING: space prohibited before that ',' (ctx:WxW)
+./graph.h:30: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - list_t *new_list() should probably be list_t *new_list(void)
+./graph.h:31: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
+./graph.h:36: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - graph_t *new_graph() should probably be graph_t *new_graph(void)
+./users.c:12: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - uint16_t get_users_number() should probably be uint16_t get_users_number(void)
+./test.c:3: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - int main() should probably be int main(void)
+./test.c:5: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./test.c:5: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./test.c:6: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./test.c:6: ERROR:SPACING: spaces required around that '<<=' (ctx:VxV)
+./test.c:7: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./test.c:7: ERROR:SPACING: space required after that ',' (ctx:VxV)
+./test.c:8: WARNING:MISSING_EOF_NEWLINE: adding a line without newline at end of file
+./friends.c:12: ERROR:SPACING: space required before the open parenthesis '('
+./friends.c:20: CHECK:BRACES: braces {} should be used on all arms of this statement
+./friends.c:25: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./friends.c:35: ERROR:ELSE_AFTER_BRACE: else should follow close brace '}'
+./social_media.c:42: WARNING:SPACE_BEFORE_TAB: please, no space before tabs
+./graph.c:5: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:6: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:7: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:8: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:9: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:14: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:14: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:15: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:15: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:16: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:21: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:21: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:22: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:22: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:23: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:23: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:24: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./graph.c:24: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:24: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:27: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - list_t *new_list() should probably be list_t *new_list(void)
+./graph.c:29: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:30: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:31: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:32: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:35: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
+./graph.c:37: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:38: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:39: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:42: ERROR:SPACING: space prohibited before that ',' (ctx:WxW)
+./graph.c:44: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:45: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:45: ERROR:SPACING: space required before the open brace '{'
+./graph.c:45: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:46: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:46: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:47: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:47: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:47: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:47: CHECK:BRACES: braces {} should be used on all arms of this statement
+./graph.c:48: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:48: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:49: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:49: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:49: CHECK:BRACES: Unbalanced braces around else statement
+./graph.c:50: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:50: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:51: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:51: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:52: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:52: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:53: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:53: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:54: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:54: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:55: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:55: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:56: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:56: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:57: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:58: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:63: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:64: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:64: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:65: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:66: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:66: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:67: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:67: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:68: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:68: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:69: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:69: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:70: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:70: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:71: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:72: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:73: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:76: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - graph_t *new_graph() should probably be graph_t *new_graph(void)
+./graph.c:78: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:79: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:80: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:81: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:86: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:86: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./graph.c:86: ERROR:SPACING: spaces required around that '<' (ctx:VxV)
+./graph.c:86: ERROR:SPACING: space required before the open parenthesis '('
+./graph.c:87: ERROR:CODE_INDENT: code indent should use tabs where possible
+./graph.c:87: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:87: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around x->friends[i]
+./graph.c:88: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:93: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./graph.c:93: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:94: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:95: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:96: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:97: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:98: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:103: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./graph.c:104: WARNING:LEADING_SPACE: please, no spaces at the start of a line

@@ -18,9 +18,9 @@ node_t *remove_node(list_t *x, int n)
 
 void link(node_t *x, node_t *y)
 {
-    if(y)
-        x->next = y;
     if(x)
+        x->next = y;
+    if(y)
         y->prev = x;    
 }
 
@@ -73,12 +73,21 @@ void ll_free(list_t **pp_list)
     *pp_list = NULL;
 }
 
-graph_t *new_graph()
+graph_t *new_graph(unsigned int nodes)
 {
     graph_t *x = malloc(sizeof(graph_t));
-    x->nodes = 0;
-    x->friends = NULL;
+    x->nodes = nodes;
+	x->friends = malloc(nodes * sizeof(list_t *));
+	for(unsigned int i=0; i<nodes; i++)
+	    x->friends[i] = new_list();
     return x;
+}
+
+void free_graph(graph_t *x)
+{
+    for(unsigned int i=0; i<x->nodes; i++)
+        ll_free(&(x->friends[i]));
+    free(x->friends);
 }
 
 void add_connection(graph_t *x, unsigned int a, unsigned int b)
@@ -97,4 +106,7 @@ void remove_connection(graph_t *x, unsigned int a, unsigned int b)
     remove_node(x->friends[b], a);
 }
 
-void get_distance(graph_t *x, unsigned int a, unsigned int b);
+int get_distance(graph_t *x, unsigned int a, unsigned int b)
+{
+    
+}
