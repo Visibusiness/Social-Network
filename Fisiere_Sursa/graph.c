@@ -5,7 +5,7 @@ graph *new_graph()
     graph *x = malloc(sizeof(graph));
     x->max_size = 0;
     x->nodes = 0;
-    x->friends = NULL
+    x->friends = NULL;
     return x;
 }
 
@@ -15,7 +15,7 @@ void add_node(graph *x, unsigned int node)
         x->max_size = 1;
     if(x->nodes + 1 > x->max_size)
         x->max_size <<= 1;
-    x->friends[node] = new_list();
+    x->friends[node] = new_list(sizeof(int));
 }
 
 void add_connection(graph *x, unsigned int a, unsigned int b)

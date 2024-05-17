@@ -15,6 +15,14 @@ void link(node_t *x, node_t *y)
         y->prev = x;    
 }
 
+list_t *new_list(unsigned int data_size)
+{
+    list_t *x = malloc(sizeof(list_t));
+    x->head = NULL;
+    x->size = 0;
+    x->data_size = data_size;
+    return x;
+}
 
 list_t *ll_create(unsigned int data_size)
 {

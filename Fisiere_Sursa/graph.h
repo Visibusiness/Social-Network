@@ -6,7 +6,7 @@ struct graph
 {
     unsigned int nodes;
     unsigned int max_size;
-    list_t *friends;
+    list_t **friends;
 };
 
 graph *new_graph();

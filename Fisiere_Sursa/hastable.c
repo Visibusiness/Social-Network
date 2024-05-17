@@ -8,35 +8,20 @@
 
 list_t *ll_create(unsigned int data_size)
 {
-    list_t *ll = malloc(sizeof(*ll));
-
+    list_t *ll = malloc(sizeof(list_t));
     ll->head = NULL;
     ll->data_size = data_size;
     ll->size = 0;
-
     return ll;
 }
 
-/*
- * Functia intoarce numarul de noduri din lista al carei pointer este trimis ca
- * parametru.
- */
 unsigned int ll_get_size(list_t *list)
 {
     if (!list)
-    {
         return -1;
-    }
-
     return list->size;
 }
 
-/*
- * Procedura elibereaza memoria folosita de toate nodurile din lista, iar la
- * sfarsit, elibereaza memoria folosita de structura lista si actualizeaza la
- * NULL valoarea pointerului la care pointeaza argumentul (argumentul este un
- * pointer la un pointer).
- */
 void ll_free(list_t **pp_list)
 {
     node_t *currNode;
@@ -55,75 +40,16 @@ void ll_free(list_t **pp_list)
     *pp_list = NULL;
 }
 
-/*
- * Atentie! Aceasta functie poate fi apelata doar pe liste ale caror noduri STIM
- * ca stocheaza int-uri. Functia afiseaza toate valorile int stocate in nodurile
- * din lista inlantuita separate printr-un spatiu.
- */
-void ll_print_int(list_t *list)
-{
-    node_t *curr;
-
-    if (!list)
-    {
-        return;
-    }
-
-    curr = list->head;
-    while (curr != NULL)
-    {
-        printf("%d ", *((int *)curr->data));
-        curr = curr->next;
-    }
-
-    printf("\n");
-}
-
-/*
- * Atentie! Aceasta functie poate fi apelata doar pe liste ale caror noduri STIM
- * ca stocheaza string-uri. Functia afiseaza toate string-urile stocate in
- * nodurile din lista inlantuita, separate printr-un spatiu.
- */
-void ll_print_string(list_t *list)
-{
-    node_t *curr;
-
-    if (!list)
-    {
-        return;
-    }
-
-    curr = list->head;
-    while (curr != NULL)
-    {
-        printf("%s ", (char *)curr->data);
-        curr = curr->next;
-    }
-
-    printf("\n");
-}
-
-
-/*
- * Functii de comparare a cheilor:
- */
 int compare_function_ints(void *a, void *b)
 {
     int int_a = *((int *)a);
     int int_b = *((int *)b);
 
     if (int_a == int_b)
-    {
         return 0;
-    }
-    else if (int_a < int_b)
-    {
+    if (int_a < int_b)
         return -1;
-    }
-    else
-    {
         return 1;
-    }
 }
 
 int compare_function_strings(void *a, void *b)
@@ -165,21 +91,12 @@ unsigned int hash_function_string(void *a)
     return hash;
 }
 
-/*
- * Functie apelata pentru a elibera memoria ocupata de cheia si valoarea unei
- * perechi din hashtable. Daca cheia sau valoarea contin tipuri de date complexe
- * aveti grija sa eliberati memoria luand in considerare acest aspect.
- */
 void key_val_free_function(void *data)
 {
     free(((info *)data)->key);
     free(((info *)data)->value);
 }
 
-/*
- * Functie apelata dupa alocarea unui hashtable pentru a-l initializa.
- * Trebuie alocate si initializate si listele inlantuite.
- */
 hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
                        int (*compare_function)(void *, void *),
                        void (*key_val_free_function)(void *))
@@ -196,12 +113,6 @@ hashtable_t *ht_create(unsigned int hmax, unsigned int (*hash_function)(void *),
     return x;
 }
 
-/*
- * Functie care intoarce:
- * 1, daca pentru cheia key a fost asociata anterior o valoare in hashtable
- * folosind functia put;
- * 0, altfel.
- */
 int ht_has_key(hashtable_t *x, void *key)
 {
     node_t *p = x->buckets[x->hash_function(key) % x->hmax]->head;
@@ -227,23 +138,6 @@ void *ht_get(hashtable_t *x, void *key)
     return NULL;
 }
 
-/*
- * Atentie! Desi cheia este trimisa ca un void pointer (deoarece nu se impune
- * tipul ei), in momentul in care se creeaza o noua intrare in hashtable (in
- * cazul in care cheia nu se gaseste deja in ht), trebuie creata o copie a
- * valorii la care pointeaza key si adresa acestei copii trebuie salvata in
- * structura info asociata intrarii din ht. Pentru a sti cati octeti trebuie
- * alocati si copiati, folositi parametrul key_size.
- *
- * Motivatie:
- * Este nevoie sa copiem valoarea la care pointeaza key deoarece dupa un apel
- * put(ht, key_actual, value_actual), valoarea la care pointeaza key_actual
- * poate fi alterata (de ex: *key_actual++). Daca am folosi direct adresa
- * pointerului key_actual, practic s-ar modifica din afara hashtable-ului cheia
- * unei intrari din hashtable. Nu ne dorim acest lucru, fiindca exista riscul sa
- * ajungem in situatia in care nu mai stim la ce cheie este inregistrata o
- * anumita valoare.
- */
 void ht_put(hashtable_t *x, void *key, unsigned int key_size,
             void *value, unsigned int value_size)
 {
@@ -270,13 +164,6 @@ void ht_put(hashtable_t *x, void *key, unsigned int key_size,
     x->size++;
 }
 
-/*
- * Procedura care elimina din hashtable intrarea asociata cheii key.
- * Atentie! Trebuie avuta grija la eliberarea intregii memorii folosite pentru o
- * intrare din hashtable (adica memoria pentru copia lui key --vezi observatia
- * de la procedura put--, pentru structura info si pentru structura Node din
- * lista inlantuita).
- */
 void ht_remove_entry(hashtable_t *x, void *key)
 {
     list_t *list = x->buckets[x->hash_function(key) % x->hmax];
@@ -293,10 +180,6 @@ void ht_remove_entry(hashtable_t *x, void *key)
     free(q);
 }
 
-/*
- * Procedura care elibereaza memoria folosita de toate intrarile din hashtable,
- * dupa care elibereaza si memoria folosita pentru a stoca structura hashtable.
- */
 void ht_free(hashtable_t *x)
 {
     for (int i = 0; i < x->hmax; i++)
