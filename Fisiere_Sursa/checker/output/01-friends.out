@@ -33,10 +33,10 @@ The distance between Andrada - Olivia is 10
 The distance between Andrada - Mihnea is 1
 The distance between Andrada - Haralamb is 3
 The distance between Andrada - Augustina is 1
-The distance between Andrada - Dumitra is 4
-The distance between Andrada - Lidia is 5
+The distance between Andrada - Dumitra is 3
+The distance between Andrada - Lidia is 2
 The distance between Andrada - Florenta is 1
-The distance between Andrada - Lidia is 5
+The distance between Andrada - Lidia is 2
 The distance between Andrada - Augustina is 1
 The distance between Andrada - Ilarion is 1
 Added connection Lucretiu - Iris
@@ -54,5 +54,6 @@ Added connection Lucretiu - Elvira
 Added connection Elvira - Denis
 Added connection Denis - Miruna
 Added connection Miruna - Felix
-The distance between Lucretiu - Felix is 10
+The distance between Lucretiu - Felix is 4
+Removed connection Miruna - Felix
 The distance between Lucretiu - Felix is 10

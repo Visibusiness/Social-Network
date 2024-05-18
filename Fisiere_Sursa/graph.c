@@ -9,11 +9,10 @@ node_t *new_node(void *data)
     return x;
 }
 
-node_t *remove_node(list_t *x, int n)
+void free_node(node_t **x)
 {
-    while(n)
-        return x->head;
-    return NULL;
+    free((*x)->data);
+    free(*x);
 }
 
 void link(node_t *x, node_t *y)
@@ -41,11 +40,11 @@ void add_in_list(list_t *list, node_t* node)
     list->size++;
 }
 
-node_t *remove_from_list(list_t *list , void *data)
+node_t *remove_from_list(list_t *list, unsigned int searched)
 {
     node_t *cr = list->head;
     while(cr){
-        if(cr->data != data) {
+        if(*(unsigned int *)cr->data == searched) {
             if(cr != list->head)
                 link(cr->prev, cr->next);
             else {
@@ -104,46 +103,37 @@ void add_connection(graph_t *x, unsigned int a, unsigned int b)
 
 void remove_connection(graph_t *x, unsigned int a, unsigned int b)
 {
-    remove_node(x->friends[a], b);
-    remove_node(x->friends[b], a);
+    node_t *aux = remove_from_list(x->friends[a], b);
+    free_node(&aux);
+    aux = remove_from_list(x->friends[b], a);
+    free_node(&aux);
 }
 
-void print_vecini(graph_t *x, unsigned int cr)
-{
-    return;
-    printf("Vecini lui %d sunt\n", cr);
-    node_t *node = x->friends[cr]->head;
-    while(node) {
-        unsigned int vecin = *((int *)node->data);
-        printf("%d este vecin al lui %d\n", vecin, cr);
-        node = node->next;
-        // node = NULL;
-    }
-    printf("\n");
-}
 
 int get_distance(graph_t *x, unsigned int a, unsigned int b)
 {
-    unsigned int *used = calloc(x->nodes, sizeof(unsigned int));
+    if(a == b)
+        return 1;
+
+    unsigned int *distance = calloc(x->nodes, sizeof(unsigned int));
     unsigned int *in_use = calloc(x->nodes, sizeof(unsigned int));
     unsigned int first=0, last=0;
     int must_return = 0;
     in_use[0]=a;
-    used[a]=1;
+    distance[a]=1;
 
     while(first <= last) {
         unsigned int cr=in_use[first];
-        // printf("sunt in %d\n", cr);
         node_t *node = x->friends[cr]->head;
         while(node) {
-            unsigned int vecin = *((unsigned int *)node->data);
-            // printf("%d este vecin al lui %d\n", vecin, cr);
-            if(vecin == b) {
-                must_return = used[cr] + 1;
+            unsigned int neighbour = *(unsigned int *)node->data;
+            if(neighbour == b) {
+                must_return = distance[cr] + 1;
+                first = last;
                 node = NULL;
-            } else if(used[vecin] == 0) {
-                used[vecin] = used[cr] + 1;
-                in_use[++last] = vecin;
+            } else if(distance[neighbour] == 0) {
+                distance[neighbour] = distance[cr] + 1;
+                in_use[++last] = neighbour;
             }
             if(node)
                 node = node->next;
@@ -151,6 +141,71 @@ int get_distance(graph_t *x, unsigned int a, unsigned int b)
         first++;
     }
     free(in_use);
-    free(used);
+    free(distance);
     return must_return;
+}
+
+void maybe_good_suggestions(graph_t *x, unsigned int a, unsigned int *good_suggestions)
+{
+    node_t *node = x->friends[a]->head;
+    while(node) {
+        unsigned int neighbour = *(unsigned int *)node->data;
+        good_suggestions[neighbour] = 1;
+        node = node->next;
+    }
+}
+
+unsigned int *suggestions(graph_t *x, unsigned int a)
+{
+    unsigned int *good_suggestions = calloc(x->nodes, sizeof(unsigned int));
+    node_t *node = x->friends[a]->head;
+    while(node) {
+        unsigned int neighbour = *(unsigned int *)node->data;
+        maybe_good_suggestions(x, neighbour, good_suggestions);
+        node = node->next;
+    }
+    node = x->friends[a]->head;
+    while(node) {
+        unsigned int neighbour = *(unsigned int *)node->data;
+        good_suggestions[neighbour] = 0;
+        node = node->next;
+    }
+    good_suggestions[a] = 0;
+    return good_suggestions;
+}
+
+unsigned int *common_friends(graph_t *x, unsigned int a, unsigned int b)
+{
+    unsigned int *friends = calloc(x->nodes, sizeof(unsigned int));
+    node_t *node = x->friends[a]->head;
+    while(node) {
+        unsigned int neighbour = *(unsigned int *)node->data;
+        friends[neighbour] = 1;
+        node = node->next;
+    }
+    node = x->friends[b]->head;
+    while(node) {
+        unsigned int neighbour = *(unsigned int *)node->data;
+        friends[neighbour]++;
+        node = node->next;
+    }
+    friends[a] = 0;
+    friends[b] = 0;
+    return friends;
+}
+
+unsigned int most_popular_friend(graph_t *x, unsigned int a)
+{
+    unsigned int friend = 0, count = 0;
+    node_t *node = x->friends[a]->head;
+    while(node) {
+        unsigned int neighbour = *(unsigned int *)node->data;
+        unsigned int current_count = x->friends[neighbour]->size;
+        if(current_count > count) {
+            count = current_count;
+            friend = neighbour;
+        }
+        node = node->next;
+    }
+    return friend;
 }
