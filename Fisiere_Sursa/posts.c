@@ -25,7 +25,7 @@ void handle_input_posts(char *input, void *data)
 		char *user_name = cmd;
 		unsigned int a = get_user_id(user_name);
 		cmd = strtok(NULL, "\n");
-		char *post_title = stdup(cmd);
+		char *post_title = strdup(cmd);
 
 		create_repost(posts->root, ++posts->nr_posts, a, post_title);
 		printf("Created %s for %s\n", post_title, user_name);
