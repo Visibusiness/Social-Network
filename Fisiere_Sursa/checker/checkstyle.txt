@@ -93,7 +93,6 @@
 ./graph.c:40: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./graph.c:45: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./graph.c:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./graph.c:46: ERROR:SPACING: space required before the open brace '{'
 ./graph.c:46: ERROR:SPACING: space required before the open parenthesis '('
 ./graph.c:47: ERROR:CODE_INDENT: code indent should use tabs where possible
 ./graph.c:47: WARNING:LEADING_SPACE: please, no spaces at the start of a line

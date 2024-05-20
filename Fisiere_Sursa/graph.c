@@ -43,7 +43,7 @@ void add_in_list(list_t *list, node_t* node)
 node_t *remove_from_list(list_t *list, unsigned int searched)
 {
     node_t *cr = list->head;
-    while(cr){
+    while(cr) {
         if(*(unsigned int *)cr->data == searched) {
             if(cr != list->head)
                 link(cr->prev, cr->next);
