@@ -36,7 +36,9 @@ int main(void)
 {
 	init_users();
 	graph_t *social_media = new_graph(get_users_number());
-	
+	all_posts *posts = new_all_posts();
+	if(!posts)
+		return 0;
 	init_tasks();
 
 	char *input = (char *)malloc(MAX_COMMAND_LEN);
@@ -52,7 +54,7 @@ int main(void)
 		#endif
 
 		#ifdef TASK_2
-		handle_input_posts(input);
+		handle_input_posts(input, posts);
 		#endif
 
 		#ifdef TASK_3
@@ -64,6 +66,7 @@ int main(void)
 	free(input);
 	free_graph(social_media);
 	free(social_media);
+	//TODO: free(posts)
 
 	return 0;
 }

@@ -10,3 +10,4 @@ There is no way to get from Emil to Frederic
 The distance between Emil - Rodica is 3
 The distance between Emil - Adrian is 1
 The distance between Emil - Tiberiu is 1
+MEMLEAKS: Check .valgrind file for memory leak info

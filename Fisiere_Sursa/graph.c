@@ -209,3 +209,36 @@ unsigned int most_popular_friend(graph_t *x, unsigned int a)
     }
     return friend;
 }
+
+post_info *new_post_info(unsigned int id, unsigned int user_id, char *title)
+{
+    post_info *x = malloc(sizeof(post_info));
+    x->id = id;
+    x->user_id = user_id;
+    x->title = title;
+    return x;
+}
+
+node_t *new_post(node_t *parent, unsigned int id, unsigned int user_id, char *title)
+{
+    tree_t *y = malloc(sizeof(tree_t));
+    y->info = new_post_info(id, user_id, title);
+    y->parent = parent;
+    y->sons = new_list();
+
+    return new_node(y);
+}
+
+all_posts *new_all_posts()
+{
+    all_posts *x = malloc(sizeof(all_posts));
+    x->nr_posts = 0;
+    x->root = new_post(NULL, 0, 0, NULL);
+    return x;
+}
+
+void create_repost(node_t *parent, unsigned int id, unsigned int user_id, char *title)
+{
+    list_t *sons = ((tree_t*)(parent->data))->sons;
+    add_in_list(sons, new_post(parent, id, user_id, title));
+}

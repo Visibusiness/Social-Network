@@ -399,3 +399,4 @@ Added connection Liana - Edgar
 Added connection Voichita - Aurel
 Added connection Alberta - Leopoldina
 Added connection Cristobal - Lacramioara
+MEMLEAKS: Check .valgrind file for memory leak info

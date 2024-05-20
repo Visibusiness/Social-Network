@@ -1,15 +1,89 @@
-==1529== Memcheck, a memory error detector
-==1529== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==1529== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
-==1529== Command: ./feed
-==1529== Parent PID: 1378
-==1529== 
-==1529== 
-==1529== HEAP SUMMARY:
-==1529==     in use at exit: 0 bytes in 0 blocks
-==1529==   total heap usage: 1,184 allocs, 1,184 frees, 35,607 bytes allocated
-==1529== 
-==1529== All heap blocks were freed -- no leaks are possible
-==1529== 
-==1529== For lists of detected and suppressed errors, rerun with: -s
-==1529== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==8693== Memcheck, a memory error detector
+==8693== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==8693== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
+==8693== Command: ./feed
+==8693== Parent PID: 8604
+==8693== 
+==8693== 
+==8693== HEAP SUMMARY:
+==8693==     in use at exit: 183 bytes in 10 blocks
+==8693==   total heap usage: 1,194 allocs, 1,184 frees, 35,790 bytes allocated
+==8693== 
+==8693== 7 bytes in 1 blocks are indirectly lost in loss record 1 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x4903CA9: strdup (strdup.c:42)
+==8693==    by 0x109F48: handle_input_posts (posts.c:28)
+==8693==    by 0x10A76E: main (social_media.c:57)
+==8693== 
+==8693== 16 bytes in 1 blocks are indirectly lost in loss record 2 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109D4E: new_post_info (graph.c:215)
+==8693==    by 0x109DAE: new_post (graph.c:225)
+==8693==    by 0x109E1A: new_all_posts (graph.c:236)
+==8693==    by 0x10A6FD: main (social_media.c:39)
+==8693== 
+==8693== 16 bytes in 1 blocks are indirectly lost in loss record 3 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109524: new_list (graph.c:30)
+==8693==    by 0x109DCB: new_post (graph.c:227)
+==8693==    by 0x109E1A: new_all_posts (graph.c:236)
+==8693==    by 0x10A6FD: main (social_media.c:39)
+==8693== 
+==8693== 16 bytes in 1 blocks are indirectly lost in loss record 4 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109D4E: new_post_info (graph.c:215)
+==8693==    by 0x109DAE: new_post (graph.c:225)
+==8693==    by 0x109E63: create_repost (graph.c:243)
+==8693==    by 0x109F7A: handle_input_posts (posts.c:30)
+==8693==    by 0x10A76E: main (social_media.c:57)
+==8693== 
+==8693== 16 bytes in 1 blocks are indirectly lost in loss record 5 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109524: new_list (graph.c:30)
+==8693==    by 0x109DCB: new_post (graph.c:227)
+==8693==    by 0x109E63: create_repost (graph.c:243)
+==8693==    by 0x109F7A: handle_input_posts (posts.c:30)
+==8693==    by 0x10A76E: main (social_media.c:57)
+==8693== 
+==8693== 24 bytes in 1 blocks are indirectly lost in loss record 6 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109D97: new_post (graph.c:224)
+==8693==    by 0x109E1A: new_all_posts (graph.c:236)
+==8693==    by 0x10A6FD: main (social_media.c:39)
+==8693== 
+==8693== 24 bytes in 1 blocks are indirectly lost in loss record 7 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x10946B: new_node (graph.c:5)
+==8693==    by 0x109DDF: new_post (graph.c:229)
+==8693==    by 0x109E1A: new_all_posts (graph.c:236)
+==8693==    by 0x10A6FD: main (social_media.c:39)
+==8693== 
+==8693== 24 bytes in 1 blocks are indirectly lost in loss record 8 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109D97: new_post (graph.c:224)
+==8693==    by 0x109E63: create_repost (graph.c:243)
+==8693==    by 0x109F7A: handle_input_posts (posts.c:30)
+==8693==    by 0x10A76E: main (social_media.c:57)
+==8693== 
+==8693== 24 bytes in 1 blocks are indirectly lost in loss record 9 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x10946B: new_node (graph.c:5)
+==8693==    by 0x109DDF: new_post (graph.c:229)
+==8693==    by 0x109E63: create_repost (graph.c:243)
+==8693==    by 0x109F7A: handle_input_posts (posts.c:30)
+==8693==    by 0x10A76E: main (social_media.c:57)
+==8693== 
+==8693== 183 (16 direct, 167 indirect) bytes in 1 blocks are definitely lost in loss record 10 of 10
+==8693==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8693==    by 0x109DF3: new_all_posts (graph.c:234)
+==8693==    by 0x10A6FD: main (social_media.c:39)
+==8693== 
+==8693== LEAK SUMMARY:
+==8693==    definitely lost: 16 bytes in 1 blocks
+==8693==    indirectly lost: 167 bytes in 9 blocks
+==8693==      possibly lost: 0 bytes in 0 blocks
+==8693==    still reachable: 0 bytes in 0 blocks
+==8693==         suppressed: 0 bytes in 0 blocks
+==8693== 
+==8693== For lists of detected and suppressed errors, rerun with: -s
+==8693== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

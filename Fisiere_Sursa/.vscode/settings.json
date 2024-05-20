@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "users.h": "c",
+        "posts.h": "c",
+        "stdio.h": "c"
+    }
+}
