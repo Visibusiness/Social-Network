@@ -242,3 +242,33 @@ void create_repost(node_t *parent, unsigned int id, unsigned int user_id, char *
     list_t *sons = ((tree_t*)(parent->data))->sons;
     add_in_list(sons, new_post(parent, id, user_id, title));
 }
+
+void free_post_info(post_info **info)
+{
+    if(!*info)
+        return;
+    free((*info)->title);
+    free(*info);
+}
+
+void free_post(node_t **post)
+{
+    if(!*post)
+        return;
+    tree_t *tree = (tree_t*)((*post)->data);
+    free_post_info(&(tree->info));
+    node_t *cr = tree->sons->head, *next;
+    while(cr) {
+        next = cr->next;
+        free_post(&cr);
+        cr = next;
+    }
+    free(tree->sons);
+    free(tree);
+    free(*post);
+}
+
+void free_all_post(all_posts *posts)
+{
+    free_post(&(posts->root));
+}

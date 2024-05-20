@@ -65,3 +65,7 @@ node_t *new_post(node_t *parent, unsigned int id, unsigned int user_id, char *ti
 all_posts *new_all_posts();
 post_info *new_post_info(unsigned int id, unsigned int user_id, char *title);
 void create_repost(node_t *parent, unsigned int id, unsigned int user_id, char *title);
+
+void free_post_info(post_info **info);
+void free_post(node_t **post);
+void free_all_post(all_posts *posts);

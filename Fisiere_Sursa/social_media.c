@@ -73,6 +73,8 @@ int main(void)
 
 	//TODO: free(posts)
 	if(task == 2) {
+		free_all_post(used_structure);
+		free(used_structure);
 		return 0;
 	}
 

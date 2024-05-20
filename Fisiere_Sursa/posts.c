@@ -8,7 +8,7 @@
 
 void handle_input_posts(char *input, void *data)
 {
-	all_posts *posts = (all_posts *)data;
+	all_posts *posts = (all_posts*)data;
 	if(!posts)
 		return;
 
