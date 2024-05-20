@@ -6,9 +6,9 @@ typedef struct node_t node_t;
 typedef struct list_t list_t;
 typedef struct graph_t graph_t;
 
-typedef struct post_info post_info;
+typedef struct post_info_t post_info_t;
 typedef struct tree_t tree_t;
-typedef struct all_posts all_posts;
+typedef struct all_posts_t all_posts_t;
 
 struct node_t {
     void *data;
@@ -44,7 +44,7 @@ unsigned int *suggestions(graph_t *x, unsigned int a);
 unsigned int *common_friends(graph_t *x, unsigned int a, unsigned int b);
 unsigned int most_popular_friend(graph_t *x, unsigned int a);
 
-struct post_info {
+struct post_info_t {
     unsigned int id;
     unsigned int user_id;
     char *title;
@@ -52,20 +52,21 @@ struct post_info {
 
 struct tree_t {
     node_t *parent;
-    post_info *info;
+    post_info_t *info;
     list_t *sons;
 };
 
-struct all_posts {
+struct all_posts_t {
     int nr_posts;
     node_t *root;
 };
 
 node_t *new_post(node_t *parent, unsigned int id, unsigned int user_id, char *title);
-all_posts *new_all_posts();
-post_info *new_post_info(unsigned int id, unsigned int user_id, char *title);
+all_posts_t *new_all_posts();
+post_info_t *new_post_info(unsigned int id, unsigned int user_id, char *title);
 void create_repost(node_t *parent, unsigned int id, unsigned int user_id, char *title);
+node_t *find_node_in_tree(node_t *parent, unsigned int parent_id, unsigned int search_id);
 
-void free_post_info(post_info **info);
+void free_post_info(post_info_t **info);
 void free_post(node_t **post);
-void free_all_post(all_posts *posts);
+void free_all_post(all_posts_t *posts);

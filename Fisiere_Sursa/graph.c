@@ -4,8 +4,8 @@ node_t *new_node(void *data)
 {
     node_t *x = malloc(sizeof(node_t));
     x->data = data;
-    x->next = NULL;
     x->prev = NULL;
+    x->next = NULL;
     return x;
 }
 
@@ -210,9 +210,9 @@ unsigned int most_popular_friend(graph_t *x, unsigned int a)
     return friend;
 }
 
-post_info *new_post_info(unsigned int id, unsigned int user_id, char *title)
+post_info_t *new_post_info(unsigned int id, unsigned int user_id, char *title)
 {
-    post_info *x = malloc(sizeof(post_info));
+    post_info_t *x = malloc(sizeof(post_info_t));
     x->id = id;
     x->user_id = user_id;
     x->title = title;
@@ -221,17 +221,16 @@ post_info *new_post_info(unsigned int id, unsigned int user_id, char *title)
 
 node_t *new_post(node_t *parent, unsigned int id, unsigned int user_id, char *title)
 {
-    tree_t *y = malloc(sizeof(tree_t));
-    y->info = new_post_info(id, user_id, title);
-    y->parent = parent;
-    y->sons = new_list();
-
-    return new_node(y);
+    tree_t *tree = malloc(sizeof(tree_t));
+    tree->info = new_post_info(id, user_id, title);
+    tree->parent = parent;
+    tree->sons = new_list();
+    return new_node(tree);
 }
 
-all_posts *new_all_posts()
+all_posts_t *new_all_posts()
 {
-    all_posts *x = malloc(sizeof(all_posts));
+    all_posts_t *x = malloc(sizeof(all_posts_t));
     x->nr_posts = 0;
     x->root = new_post(NULL, 0, 0, NULL);
     return x;
@@ -243,11 +242,39 @@ void create_repost(node_t *parent, unsigned int id, unsigned int user_id, char *
     add_in_list(sons, new_post(parent, id, user_id, title));
 }
 
-void free_post_info(post_info **info)
+node_t *find_node_in_tree(node_t *parent, unsigned int parent_id, unsigned int search_id)
+{
+    if(!parent)
+        return NULL;
+    node_t *cr = ((tree_t*)(parent->data))->sons->head;
+    while(cr) {
+        unsigned int cr_id = ((tree_t*)(cr->data))->info->id;
+        if(search_id == 0) {
+            if(cr_id == parent_id)
+                return cr;
+        } else {
+            if(cr_id == parent_id) {
+                if(parent_id == search_id)
+                    return cr;
+                return find_node_in_tree(cr, search_id, search_id);
+            }
+            if(parent_id == search_id) {
+                node_t *find = find_node_in_tree(cr, search_id, search_id);
+                if(find)
+                    return find;
+            }
+        }
+        cr = cr->next;
+    }
+    return NULL;
+}
+
+void free_post_info(post_info_t **info)
 {
     if(!*info)
         return;
-    free((*info)->title);
+    if((*info)->title)
+        free((*info)->title);
     free(*info);
 }
 
@@ -268,7 +295,7 @@ void free_post(node_t **post)
     free(*post);
 }
 
-void free_all_post(all_posts *posts)
+void free_all_post(all_posts_t *posts)
 {
     free_post(&(posts->root));
 }

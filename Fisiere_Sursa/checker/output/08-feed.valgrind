@@ -1,34 +1,174 @@
-==8717== Memcheck, a memory error detector
-==8717== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==8717== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
-==8717== Command: ./feed
-==8717== Parent PID: 8604
-==8717== 
-==8717== 
-==8717== Process terminating with default action of signal 2 (SIGINT)
-==8717==    at 0x495D7BF: open (open64.c:41)
-==8717==    by 0x48E65B1: _IO_file_open (fileops.c:188)
-==8717==    by 0x48E676A: _IO_file_fopen@@GLIBC_2.2.5 (fileops.c:280)
-==8717==    by 0x48D9F68: __fopen_internal (iofopen.c:75)
-==8717==    by 0x109247: init_users (users.c:19)
-==8717==    by 0x10A6D6: main (social_media.c:37)
-==8717== 
-==8717== HEAP SUMMARY:
-==8717==     in use at exit: 472 bytes in 1 blocks
-==8717==   total heap usage: 1 allocs, 0 frees, 472 bytes allocated
-==8717== 
-==8717== 472 bytes in 1 blocks are still reachable in loss record 1 of 1
-==8717==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==8717==    by 0x48D9F0A: __fopen_internal (iofopen.c:65)
-==8717==    by 0x109247: init_users (users.c:19)
-==8717==    by 0x10A6D6: main (social_media.c:37)
-==8717== 
-==8717== LEAK SUMMARY:
-==8717==    definitely lost: 0 bytes in 0 blocks
-==8717==    indirectly lost: 0 bytes in 0 blocks
-==8717==      possibly lost: 0 bytes in 0 blocks
-==8717==    still reachable: 472 bytes in 1 blocks
-==8717==         suppressed: 0 bytes in 0 blocks
-==8717== 
-==8717== For lists of detected and suppressed errors, rerun with: -s
-==8717== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==25428== Memcheck, a memory error detector
+==25428== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==25428== Using Valgrind-3.20.0 and LibVEX; rerun with -h for copyright info
+==25428== Command: ./feed
+==25428== Parent PID: 25291
+==25428== 
+==25428== Invalid read of size 8
+==25428==    at 0x109E56: create_repost (graph.c:241)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428==  Address 0x4a585c0 is 0 bytes after a block of size 16 alloc'd
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x109534: new_list (graph.c:30)
+==25428==    by 0x109723: new_graph (graph.c:83)
+==25428==    by 0x10AB7F: main (social_media.c:43)
+==25428== 
+==25428== Invalid read of size 8
+==25428==    at 0x109569: add_in_list (graph.c:38)
+==25428==    by 0x109E85: create_repost (graph.c:242)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==25428== 
+==25428== 
+==25428== Process terminating with default action of signal 11 (SIGSEGV)
+==25428==  Access not within mapped region at address 0x0
+==25428==    at 0x109569: add_in_list (graph.c:38)
+==25428==    by 0x109E85: create_repost (graph.c:242)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428==  If you believe this happened as a result of a stack
+==25428==  overflow in your program's main thread (unlikely but
+==25428==  possible), you can try to increase the size of the
+==25428==  main thread stack using the --main-stacksize= flag.
+==25428==  The main thread stack size used in this run was 8388608.
+==25428== 
+==25428== HEAP SUMMARY:
+==25428==     in use at exit: 29,630 bytes in 1,068 blocks
+==25428==   total heap usage: 1,103 allocs, 35 frees, 34,657 bytes allocated
+==25428== 
+==25428== 16 bytes in 1 blocks are still reachable in loss record 1 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x1096D6: new_graph (graph.c:79)
+==25428==    by 0x10AB7F: main (social_media.c:43)
+==25428== 
+==25428== 16 bytes in 1 blocks are still reachable in loss record 2 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x109D5E: new_post_info (graph.c:215)
+==25428==    by 0x109DBE: new_post (graph.c:225)
+==25428==    by 0x109E73: create_repost (graph.c:242)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428== 
+==25428== 16 bytes in 1 blocks are still reachable in loss record 3 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x109534: new_list (graph.c:30)
+==25428==    by 0x109DDB: new_post (graph.c:227)
+==25428==    by 0x109E73: create_repost (graph.c:242)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428== 
+==25428== 20 bytes in 5 blocks are still reachable in loss record 4 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x1097A9: add_connection (graph.c:96)
+==25428==    by 0x10A686: handle_input_friends (friends.c:37)
+==25428==    by 0x10ABDD: main (social_media.c:54)
+==25428== 
+==25428== 20 bytes in 5 blocks are still reachable in loss record 5 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x1097B7: add_connection (graph.c:97)
+==25428==    by 0x10A686: handle_input_friends (friends.c:37)
+==25428==    by 0x10ABDD: main (social_media.c:54)
+==25428== 
+==25428== 24 bytes in 1 blocks are still reachable in loss record 6 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x109DA7: new_post (graph.c:224)
+==25428==    by 0x109E73: create_repost (graph.c:242)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428== 
+==25428== 24 bytes in 1 blocks are still reachable in loss record 7 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x10947B: new_node (graph.c:5)
+==25428==    by 0x109DEF: new_post (graph.c:228)
+==25428==    by 0x109E73: create_repost (graph.c:242)
+==25428==    by 0x10A226: handle_input_posts (posts.c:46)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428== 
+==25428== 71 bytes in 1 blocks are still reachable in loss record 8 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x4903CA9: strdup (strdup.c:42)
+==25428==    by 0x10A1F4: handle_input_posts (posts.c:44)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428== 
+==25428== 84 bytes in 1 blocks are still reachable in loss record 9 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x4903CA9: strdup (strdup.c:42)
+==25428==    by 0x10A157: handle_input_posts (posts.c:32)
+==25428==    by 0x10ABF0: main (social_media.c:58)
+==25428== 
+==25428== 120 bytes in 5 blocks are still reachable in loss record 10 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x10947B: new_node (graph.c:5)
+==25428==    by 0x1097D9: add_connection (graph.c:100)
+==25428==    by 0x10A686: handle_input_friends (friends.c:37)
+==25428==    by 0x10ABDD: main (social_media.c:54)
+==25428== 
+==25428== 120 bytes in 5 blocks are still reachable in loss record 11 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x10947B: new_node (graph.c:5)
+==25428==    by 0x109808: add_connection (graph.c:101)
+==25428==    by 0x10A686: handle_input_friends (friends.c:37)
+==25428==    by 0x10ABDD: main (social_media.c:54)
+==25428== 
+==25428== 500 bytes in 1 blocks are still reachable in loss record 12 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x10ABA3: main (social_media.c:47)
+==25428== 
+==25428== 3,831 bytes in 518 blocks are still reachable in loss record 13 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x109311: init_users (users.c:35)
+==25428==    by 0x10AB50: main (social_media.c:39)
+==25428== 
+==25428== 4,096 bytes in 1 blocks are still reachable in loss record 14 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x48D941B: _IO_file_doallocate (filedoalloc.c:101)
+==25428==    by 0x48E804F: _IO_doallocbuf (genops.c:347)
+==25428==    by 0x48E804F: _IO_doallocbuf (genops.c:342)
+==25428==    by 0x48E6E0B: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==25428==    by 0x48E8101: _IO_default_uflow (genops.c:362)
+==25428==    by 0x48DAF49: _IO_getline_info (iogetline.c:60)
+==25428==    by 0x48D9D7B: fgets (iofgets.c:53)
+==25428==    by 0x10ABBF: main (social_media.c:49)
+==25428== 
+==25428== 4,096 bytes in 1 blocks are still reachable in loss record 15 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x48D941B: _IO_file_doallocate (filedoalloc.c:101)
+==25428==    by 0x48E804F: _IO_doallocbuf (genops.c:347)
+==25428==    by 0x48E804F: _IO_doallocbuf (genops.c:342)
+==25428==    by 0x48E70E7: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==25428==    by 0x48E622D: _IO_new_file_xsputn (fileops.c:1243)
+==25428==    by 0x48E622D: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==25428==    by 0x48B9408: __printf_buffer_flush_to_file (printf_buffer_to_file.c:59)
+==25428==    by 0x48B94BF: __printf_buffer_to_file_done (printf_buffer_to_file.c:120)
+==25428==    by 0x48C2D98: __vfprintf_internal (vfprintf-internal.c:1460)
+==25428==    by 0x48B8BDA: printf (printf.c:33)
+==25428==    by 0x10A6A5: handle_input_friends (friends.c:38)
+==25428==    by 0x10ABDD: main (social_media.c:54)
+==25428== 
+==25428== 4,144 bytes in 1 blocks are still reachable in loss record 16 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x1092AE: init_users (users.c:28)
+==25428==    by 0x10AB50: main (social_media.c:39)
+==25428== 
+==25428== 4,144 bytes in 1 blocks are still reachable in loss record 17 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x1096F2: new_graph (graph.c:81)
+==25428==    by 0x10AB7F: main (social_media.c:43)
+==25428== 
+==25428== 8,288 bytes in 518 blocks are still reachable in loss record 18 of 18
+==25428==    at 0x4840808: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==25428==    by 0x109534: new_list (graph.c:30)
+==25428==    by 0x109723: new_graph (graph.c:83)
+==25428==    by 0x10AB7F: main (social_media.c:43)
+==25428== 
+==25428== LEAK SUMMARY:
+==25428==    definitely lost: 0 bytes in 0 blocks
+==25428==    indirectly lost: 0 bytes in 0 blocks
+==25428==      possibly lost: 0 bytes in 0 blocks
+==25428==    still reachable: 29,630 bytes in 1,068 blocks
+==25428==         suppressed: 0 bytes in 0 blocks
+==25428== 
+==25428== For lists of detected and suppressed errors, rerun with: -s
+==25428== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
