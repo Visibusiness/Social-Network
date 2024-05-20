@@ -2,6 +2,7 @@
     "files.associations": {
         "users.h": "c",
         "posts.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "graph.h": "c"
     }
 }

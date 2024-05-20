@@ -42,7 +42,6 @@ void handle_input_posts(char *input, void *data)
 		unsigned int a = get_user_id(user_name);
 		cmd = strtok(NULL, "\n");
 		char *post_title = strdup(cmd);
-
 		create_repost(posts->root, ++posts->nr_posts, a, post_title);
 		printf("Created %s for %s\n", post_title, user_name);
 	} else if (!strcmp(cmd, "repost")) {
@@ -66,28 +65,96 @@ void handle_input_posts(char *input, void *data)
 			c = atoi(cmd);
 		node_t *post = find_node_in_tree(posts->root, b, c);
 		post_info_t *post_info = ((tree_t *)(post->data))->info;
-		// printf("%s - Post #%d by %s\n", post_info->title, post_info->id, get_user_name(post_info->user_id));
-		printf("%s - Post by %s\n", post_info->title, get_user_name(post_info->user_id));
-		print_reposts(post, 0);
+		if(!c) {
+			printf("%s - Post by %s\n", post_info->title, get_user_name(post_info->user_id));
+			print_reposts(post, 0);
+		} else {
+			print_reposts(post, 1);
+		}
+	} else if (!strcmp(cmd, "common-repost")) {
+		cmd = strtok(NULL, "\n ");
+		unsigned int a = atoi(cmd);
+		cmd = strtok(NULL, "\n ");
+		unsigned int b = atoi(cmd);
+		cmd = strtok(NULL, "\n");
+		unsigned int c = atoi(cmd);
+		node_t *post1 = find_node_in_tree(posts->root, a, b);
+		node_t *post2 = find_node_in_tree(posts->root, a, c);
+		int repost_id = ((tree_t*)common_repost_id(posts->root, post1, post2)->data)->info->id;
+		printf("The first common repost of %d and %d is %d\n", b, c, repost_id);
+	} else if (!strcmp(cmd, "like")) {
+		cmd = strtok(NULL, "\n ");
+		char *user_name = cmd;
+		unsigned int a = get_user_id(user_name);
+		cmd = strtok(NULL, "\n ");
+		unsigned int b = atoi(cmd);
+		cmd = strtok(NULL, "\n");
+		unsigned int c = 0;
+		if(cmd)
+			c = atoi(cmd);
+		post_info_t *post_info = ((tree_t *)(find_node_in_tree(posts->root, b, c)->data))->info;
+		list_t *likes = post_info->likes;
+		node_t *like = find_like(likes, a);
+		char *title = ((tree_t *)(find_node_in_tree(posts->root, b, 0)->data))->info->title;
+		printf("User %s ", user_name);
+		if(!like) {
+			add_in_list(likes, new_node(new_like(a)));
+		} else {
+			like_t *edited_like = (like_t *)(like->data);
+			if(edited_like->like == 1)
+				printf("un");
+			edited_like->like *= -1;
+		}
+		if(c)
+			printf("liked repost %s\n", title);
+		else
+			printf("liked post %s\n", title);
 	}
-	else if (!strcmp(cmd, "common-repost"))
-		(void)cmd;
-		// TODO: Add function
-	else if (!strcmp(cmd, "like"))
-		(void)cmd;
-		// TODO: Add function
-	else if (!strcmp(cmd, "ratio"))
-		(void)cmd;
-		// TODO: Add function
-	else if (!strcmp(cmd, "delete"))
-		(void)cmd;
-		// TODO: Add function
-	else if (!strcmp(cmd, "get-likes"))
-		(void)cmd;
-		// TODO: Add function
-	else if (!strcmp(cmd, "get-likes"))
-		(void)cmd;
-		// TODO: Add function
+	else if (!strcmp(cmd, "get-likes")) {
+		cmd = strtok(NULL, "\n ");
+		unsigned int b = atoi(cmd);
+		cmd = strtok(NULL, "\n");
+		unsigned int c = 0;
+		if(cmd)
+			c = atoi(cmd);
+		post_info_t *post_info = ((tree_t *)(find_node_in_tree(posts->root, b, c)->data))->info;
+		list_t *likes = post_info->likes;
+		unsigned int nr_likes = like_count(likes);
+		if(c)
+			printf("Repost #%d has %d likes\n", post_info->id, nr_likes);
+		else {
+			char *title = ((tree_t *)(find_node_in_tree(posts->root, b, 0)->data))->info->title;
+			printf("Post %s has %d likes\n", title, nr_likes);
+		}
+	} else if (!strcmp(cmd, "ratio")) {
+		cmd = strtok(NULL, "\n ");
+		unsigned int post_id = atoi(cmd);
+		node_t *post = find_node_in_tree(posts->root, post_id, 0);
+		unsigned int most_likes = 0, most_liked_id = 0;
+		find_most_liked_id(post, &most_likes, &most_liked_id);
+		if(most_likes > like_count(((tree_t*)(post->data))->info->likes))
+			printf("Post %d got ratio'd by repost %d\n", post_id, most_liked_id);
+		else
+			printf("The original post is the highest rated\n");
+	} else if (!strcmp(cmd, "delete")) {
+		cmd = strtok(NULL, "\n ");
+		unsigned int b = atoi(cmd);
+		cmd = strtok(NULL, "\n");
+		unsigned int c = 0;
+		if(cmd)
+			c = atoi(cmd);
+		node_t *post = find_node_in_tree(posts->root, b, c);
+		tree_t *tree = (tree_t*)(post->data);
+		node_t *parent = tree->parent;
+		if(c) {
+			char *title = ((tree_t *)(find_node_in_tree(posts->root, b, 0)->data))->info->title;
+			printf("Deleted repost #%d of post %s\n", tree->info->id, title);
+		} else {
+			printf("Deleted post %s\n", tree->info->title);
+		}
+		remove_repost(((tree_t*)(parent->data))->sons, post);
+		free_post(&post);
+	}
 
 	free(commands);
 }

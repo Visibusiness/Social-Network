@@ -49,7 +49,8 @@ node_t *remove_from_list(list_t *list, unsigned int searched)
                 link(cr->prev, cr->next);
             else {
                 list->head = cr->next;
-                list->head->prev = NULL;
+                if(list->head)
+                    list->head->prev = NULL;
             }
             list->size--;
             return cr;
@@ -216,6 +217,7 @@ post_info_t *new_post_info(unsigned int id, unsigned int user_id, char *title)
     x->id = id;
     x->user_id = user_id;
     x->title = title;
+    x->likes = new_list();
     return x;
 }
 
@@ -269,12 +271,116 @@ node_t *find_node_in_tree(node_t *parent, unsigned int parent_id, unsigned int s
     return NULL;
 }
 
+node_t *parent(node_t *x)
+{
+    if(!x)
+        return NULL;
+    return ((tree_t *)(x->data))->parent;
+}
+
+unsigned int distance_to_root(node_t *root, node_t *x)
+{
+    unsigned int distance = 0;
+    while(x != root) {
+        x = parent(x);
+        distance++;
+    }
+    return distance;
+}
+
+node_t *common_repost_id(node_t *root, node_t *x, node_t *y)
+{
+    unsigned int a = distance_to_root(root, x);
+    unsigned int b = distance_to_root(root, y);
+    while (a > b) {
+        x = parent(x);
+        a--;
+    }
+    while (b > a) {
+        y = parent(y);
+        b--;
+    }
+    while (x != y) {
+        x = parent(x);
+        y = parent(y);
+    }
+    return x;
+}
+
+like_t *new_like(unsigned int id)
+{
+    like_t *x = malloc(sizeof(like_t));
+    x->id = id;
+    x->like = 1;
+    return x;
+}
+
+node_t *find_like(list_t *likes, unsigned int id)
+{
+    node_t *cr = likes->head;
+    while (cr) {
+        if(((like_t *)(cr->data))->id == id)
+            return cr;
+        cr = cr->next;
+    }
+    return NULL;
+}
+
+unsigned int like_count(list_t *likes)
+{
+    int count = 0;
+    node_t *cr = likes->head;
+    while (cr) {
+        if(((like_t *)(cr->data))->like == 1)
+            count++;
+        cr = cr->next;
+    }
+    return count;
+}
+
+void find_most_liked_id(node_t *post, unsigned int *most_likes, unsigned int *most_liked_id)
+{
+    if(!post)
+        return;
+    unsigned int cr_likes = like_count(((tree_t*)(post->data))->info->likes);
+    unsigned int cr_id = ((tree_t*)(post->data))->info->id;
+    if(cr_likes > *most_likes || ((cr_likes == *most_likes) && (cr_id > *most_liked_id))) {
+        *most_likes = cr_likes;
+        *most_liked_id = cr_id;
+    }
+    node_t *cr = ((tree_t*)(post->data))->sons->head;
+    while (cr) {
+        find_most_liked_id(cr, most_likes, most_liked_id);
+        cr = cr->next;
+    }
+}
+
+void remove_repost(list_t *list, node_t *post)
+{
+    list->size--;
+    if(post != list->head)
+        link(post->prev, post->next);
+    else {
+        list->head = post->next;
+        if(list->head)
+            list->head->prev = NULL;
+    }
+}
+
 void free_post_info(post_info_t **info)
 {
     if(!*info)
         return;
     if((*info)->title)
         free((*info)->title);
+    node_t *cr = (*info)->likes->head, *next;
+    while(cr) {
+        next = cr->next;
+        free(cr->data);
+        free(cr);
+        cr = next;
+    }
+    free((*info)->likes);
     free(*info);
 }
 
@@ -293,6 +399,7 @@ void free_post(node_t **post)
     free(tree->sons);
     free(tree);
     free(*post);
+    *post = NULL;
 }
 
 void free_all_post(all_posts_t *posts)
