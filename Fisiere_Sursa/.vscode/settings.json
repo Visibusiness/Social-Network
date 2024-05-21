@@ -1,8 +1,10 @@
 {
     "files.associations": {
+        "*.c": "c",
         "users.h": "c",
         "posts.h": "c",
         "stdio.h": "c",
-        "graph.h": "c"
+        "graph.h": "c",
+        "stdlib.h": "c"
     }
 }

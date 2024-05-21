@@ -83,3 +83,5 @@ void remove_repost(list_t *list, node_t *post);
 void free_post_info(post_info_t **info);
 void free_post(node_t **post);
 void free_all_post(all_posts_t *posts);
+
+int is_friend(graph_t *x, unsigned int a, unsigned int b);

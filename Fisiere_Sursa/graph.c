@@ -406,3 +406,13 @@ void free_all_post(all_posts_t *posts)
 {
     free_post(&(posts->root));
 }
+int is_friend(graph_t *x, unsigned int a, unsigned int b)
+{
+    node_t *cr = x->friends[a]->head;
+    while(cr) {
+        if(*(unsigned int *)cr->data == b)
+            return 1;
+        cr = cr->next;
+    }
+    return 0;
+}

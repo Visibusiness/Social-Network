@@ -37,12 +37,11 @@ int init_tasks(void)
 int main(void)
 {
 	init_users();
-	int task = init_tasks();
-	void *used_structure = NULL;
-	if(task == 1)
-		used_structure = new_graph(get_users_number());
-	else if(task == 2)
-		used_structure = new_all_posts();
+	// int task = init_tasks();
+	void *social_media = NULL;
+	void *posts = NULL;
+		social_media = new_graph(get_users_number());
+		posts = new_all_posts();
 
 	char *input = (char *)malloc(MAX_COMMAND_LEN);
 	while (1) {
@@ -51,31 +50,30 @@ int main(void)
 			break;
 		
 		#ifdef TASK_1
-		handle_input_friends(input, used_structure);
+		handle_input_friends(input, social_media);
 		#endif
 
 		#ifdef TASK_2
-		handle_input_posts(input, used_structure);
+		handle_input_posts(input, posts);
 		#endif
 
 		#ifdef TASK_3
-		handle_input_feed(input);
+		handle_input_feed(input, social_media, posts);
 		#endif
 	}
 
 	free_users();
 	free(input);
-	if(task == 1) {
-		free_graph(used_structure);
-		free(used_structure);
-		return 0;
-	}
+
+		free_graph(social_media);
+		free(social_media);
+	
 
 	//TODO: free(posts)
-	if(task == 2) {
-		free_all_post(used_structure);
-		free(used_structure);
-		return 0;
-	}
+
+		free_all_post(posts);
+		free(posts);
+	
+	return 0;
 
 }
