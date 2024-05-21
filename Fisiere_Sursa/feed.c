@@ -34,12 +34,39 @@ void handle_input_feed(char *input, void *data1, void *data2)
 			latest_post_id--;
 		}
 	}
-	else if (!strcmp(cmd, "view-profile"))
-		(void)cmd;
-		// TODO: Add function
-	else if (!strcmp(cmd, "friends-repost"))
-		(void)cmd;
-		// TODO: Add function
+	else if (!strcmp(cmd, "view-profile")){
+		
+		
+		
+	}
+	else if (!strcmp(cmd, "friends-repost")){
+		cmd = strtok(NULL, "\n ");
+		unsigned int a = get_user_id(cmd);
+		cmd = strtok(NULL, "\n");
+		unsigned int b = atoi(cmd);
+		node_t *head = ((tree_t *)posts->root->data)->sons->head;
+		node_t *that_post = NULL;
+		do{
+			if(((tree_t *)head->data)->info->id == b){
+				that_post = head;
+				break;
+			}
+			head = head->next;
+		}while(head != ((tree_t *)posts->root->data)->sons->head->prev);
+		if(that_post == NULL){
+			printf("No such post\n");
+			exit(1);
+		}
+		node_t *cr = ((tree_t *)that_post->data)->sons->head;
+		for(unsigned int i = 0; i < ((tree_t *)that_post->data)->sons->size; i++){
+			post_info_t *post_info = ((tree_t *)(cr->data))->info;
+			if(is_friend(social_media, a, post_info->user_id)){
+				printf("%s\n", get_user_name(post_info->user_id));
+			}
+			cr = cr->next;
+		}
+	}
+	
 	else if (!strcmp(cmd, "common-groups"))
 		(void)cmd;
 		// TODO: Add function
