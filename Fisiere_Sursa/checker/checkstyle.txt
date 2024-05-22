@@ -130,13 +130,11 @@
 ./feed.c:77: CHECK:LONG_LINE_COMMENT: line length of 90 exceeds 80 columns
 ./feed.c:83: CHECK:LONG_LINE_COMMENT: line length of 95 exceeds 80 columns
 ./feed.c:84: CHECK:LONG_LINE_COMMENT: line length of 92 exceeds 80 columns
-./feed.c:98: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:99: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:103: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:110: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:112: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:112: WARNING:BRACES: braces {} are not necessary for single statement blocks
-./feed.c:120: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+./feed.c:97: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:104: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:106: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:106: WARNING:BRACES: braces {} are not necessary for single statement blocks
+./feed.c:114: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
 ./social_media.c:51: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:70: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:75: ERROR:TRAILING_WHITESPACE: trailing whitespace

@@ -93,13 +93,7 @@ void handle_input_feed(char *input, void *data1, void *data2)
 		cmd = strtok(NULL, "\n ");
 		unsigned int a = get_user_id(cmd);
 		cmd = strtok(NULL, "\n");
-		unsigned int b = atoi(cmd);
-		node_t *cr = ((tree_t *)posts->root->data)->sons->head;
-		while(cr) {
-			if(((tree_t *)cr->data)->info->id == b)
-				break;
-			cr = cr->next;
-		}
+		node_t *cr = find_node_in_tree(posts->root, atoi(cmd), 0);
 		if(!cr) {
 			printf("No such post\n");
 			// exit(1);
