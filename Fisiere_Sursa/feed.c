@@ -95,21 +95,18 @@ void handle_input_feed(char *input, void *data1, void *data2)
 		cmd = strtok(NULL, "\n");
 		unsigned int b = atoi(cmd);
 		node_t *cr = ((tree_t *)posts->root->data)->sons->head;
-		node_t *post = NULL;
 		while(cr) {
-			if(((tree_t *)cr->data)->info->id == b) {
-				post = cr;
+			if(((tree_t *)cr->data)->info->id == b)
 				break;
-			}
 			cr = cr->next;
 		}
-		if(!post) {
+		if(!cr) {
 			printf("No such post\n");
 			// exit(1);
 			free(commands);
 			return;
 		}
-		cr = ((tree_t *)post->data)->sons->head;
+		cr = ((tree_t *)cr->data)->sons->head;
 		while(cr) {
 			post_info_t *post_info = ((tree_t *)(cr->data))->info;
 			if(is_friend(social_media, a, post_info->user_id)) {
