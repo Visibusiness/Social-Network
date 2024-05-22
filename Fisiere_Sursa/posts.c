@@ -155,7 +155,7 @@ void handle_input_posts(char *input, void *data)
 		remove_repost(((tree_t*)(parent->data))->sons, post);
 		free_post(&post);
 	}
-
+	
 	free(commands);
 }
 

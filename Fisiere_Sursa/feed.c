@@ -4,6 +4,7 @@
 #include "feed.h"
 #include "users.h"
 #include "graph.h"
+
 void handle_input_feed(char *input, void *data1, void *data2)
 {
 	char *commands = strdup(input);
@@ -19,9 +20,9 @@ void handle_input_feed(char *input, void *data1, void *data2)
 		cmd = strtok(NULL, "\n");
 		int feed_size = atoi(cmd);
 		unsigned int latest_post_id = posts->nr_posts - 1;
-		while(feed_size){
+		while(feed_size) {
 			node_t *post = find_node_in_tree(posts->root, latest_post_id, latest_post_id);
-			if(!post){
+			if(!post) {
 				break;
 			}
 			post_info_t *post_info = ((tree_t *)(post->data))->info;
@@ -33,43 +34,42 @@ void handle_input_feed(char *input, void *data1, void *data2)
 			}
 			latest_post_id--;
 		}
-	}
-	else if (!strcmp(cmd, "view-profile")){
-		
+	} else if (!strcmp(cmd, "view-profile")){
 		
 		
 	}
-	else if (!strcmp(cmd, "friends-repost")){
+	else if (!strcmp(cmd, "friends-repost")) {
 		cmd = strtok(NULL, "\n ");
 		unsigned int a = get_user_id(cmd);
 		cmd = strtok(NULL, "\n");
 		unsigned int b = atoi(cmd);
-		node_t *head = ((tree_t *)posts->root->data)->sons->head;
+		node_t *cr = ((tree_t *)posts->root->data)->sons->head;
 		node_t *that_post = NULL;
-		do{
-			if(((tree_t *)head->data)->info->id == b){
-				that_post = head;
+		while(cr) {
+			if(((tree_t *)cr->data)->info->id == b) {
+				that_post = cr;
 				break;
 			}
-			head = head->next;
-		}while(head != ((tree_t *)posts->root->data)->sons->head->prev);
-		if(that_post == NULL){
+			cr = cr->next;
+		}
+		if(!that_post) {
 			printf("No such post\n");
-			exit(1);
+			// exit(1);
+			free(commands);
+			return;
 		}
 		node_t *cr = ((tree_t *)that_post->data)->sons->head;
-		for(unsigned int i = 0; i < ((tree_t *)that_post->data)->sons->size; i++){
+		while(cr) {
 			post_info_t *post_info = ((tree_t *)(cr->data))->info;
-			if(is_friend(social_media, a, post_info->user_id)){
+			if(is_friend(social_media, a, post_info->user_id)) {
 				printf("%s\n", get_user_name(post_info->user_id));
 			}
 			cr = cr->next;
 		}
-	}
-	
-	else if (!strcmp(cmd, "common-groups"))
-		(void)cmd;
+	} else if (!strcmp(cmd, "common-groups")) {
 		// TODO: Add function
+
+	}
 
 	free(commands);
 }
