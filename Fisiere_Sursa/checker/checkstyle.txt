@@ -78,37 +78,70 @@
 ./friends.c:89: CHECK:LONG_LINE: line length of 90 exceeds 80 columns
 ./friends.c:93: ERROR:SPACING: space required before the open parenthesis '('
 ./friends.c:95: WARNING:LONG_FUNCTION: 'handle_input_friends' function definition is 85 lines, perhaps refactor
-./feed.c:17: ERROR:SPACING: space required before the open brace '{'
-./feed.c:23: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:24: CHECK:LONG_LINE: line length of 90 exceeds 80 columns
-./feed.c:25: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:25: WARNING:BRACES: braces {} are not necessary for single statement blocks
-./feed.c:29: CHECK:LONG_LINE: line length of 90 exceeds 80 columns
-./feed.c:29: ERROR:SPACING: space required before the open brace '{'
-./feed.c:29: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:30: ERROR:SPACING: space required before the open brace '{'
-./feed.c:30: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:31: CHECK:LONG_LINE: line length of 92 exceeds 80 columns
-./feed.c:37: ERROR:SPACING: space required before the open brace '{'
-./feed.c:38: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./feed.c:38: CHECK:BRACES: Blank lines aren't necessary after an open brace '{'
-./feed.c:39: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./feed.c:39: CHECK:LINE_SPACING: Please don't use multiple blank lines
-./feed.c:40: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
-./feed.c:41: ERROR:ELSE_AFTER_BRACE: else should follow close brace '}'
-./feed.c:48: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:49: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:55: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:62: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:64: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:64: WARNING:BRACES: braces {} are not necessary for single statement blocks
-./feed.c:72: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+./feed.c:10: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:10: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:10: WARNING:BRACES: braces {} are not necessary for single statement blocks
+./feed.c:11: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:11: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:14: CHECK:LONG_LINE: line length of 102 exceeds 80 columns
+./feed.c:14: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:14: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:14: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'parent->data'
+./feed.c:14: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'parent->data'
+./feed.c:14: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:17: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:17: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:18: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:20: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./feed.c:21: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:22: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./feed.c:24: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:24: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:25: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:25: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:26: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:26: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:27: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:32: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:32: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:33: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:33: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:35: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:35: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:36: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:39: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:40: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./feed.c:42: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:42: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:43: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:44: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:44: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'cr->data'
+./feed.c:44: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:46: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:46: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:47: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:47: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:48: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:66: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:67: CHECK:LONG_LINE: line length of 90 exceeds 80 columns
+./feed.c:68: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:68: WARNING:BRACES: braces {} are not necessary for single statement blocks
+./feed.c:72: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:73: CHECK:LONG_LINE: line length of 95 exceeds 80 columns
+./feed.c:73: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:74: CHECK:LONG_LINE: line length of 92 exceeds 80 columns
+./feed.c:89: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:90: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:96: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:103: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:105: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:105: WARNING:BRACES: braces {} are not necessary for single statement blocks
+./feed.c:113: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
 ./social_media.c:51: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:70: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./social_media.c:71: CHECK:LINE_SPACING: Please don't use multiple blank lines
-./social_media.c:76: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./social_media.c:79: WARNING:MISSING_EOF_NEWLINE: adding a line without newline at end of file
-./social_media.c:79: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+./social_media.c:75: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./social_media.c:78: WARNING:MISSING_EOF_NEWLINE: adding a line without newline at end of file
+./social_media.c:78: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
 ./graph.c:5: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./graph.c:6: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./graph.c:7: WARNING:LEADING_SPACE: please, no spaces at the start of a line

@@ -5,6 +5,49 @@
 #include "users.h"
 #include "graph.h"
 
+void search_user_reposts(node_t *parent, unsigned int user_id, char *title)
+{
+    if(!parent) {
+        return;
+	}
+
+	if(((tree_t*)(parent->data))->info->user_id == user_id && !((tree_t*)(parent->data))->info->title)
+		printf("Reposted: %s\n", title);
+
+    node_t *cr = ((tree_t*)(parent->data))->sons->head;
+	if(!cr)
+		return;
+	
+	while(cr->next)
+		cr=cr->next;
+
+    while(cr) {
+        search_user_reposts(cr, user_id, title);
+        cr = cr->prev;
+    }
+}
+
+void search_user_posts(node_t *root, unsigned int user_id)
+{
+    if(!root)
+        return;
+
+    node_t *cr = ((tree_t*)(root->data))->sons->head;
+	if(!cr)
+		return;
+
+	while(cr->next)
+		cr=cr->next;
+
+    while(cr) {
+		char *title = ((tree_t*)(cr->data))->info->title;
+		if(((tree_t*)(cr->data))->info->user_id == user_id)
+			printf("Posted: %s\n", title);
+        search_user_reposts(cr, user_id, title);
+        cr = cr->prev;
+    }
+}
+
 void handle_input_feed(char *input, void *data1, void *data2)
 {
 	char *commands = strdup(input);
@@ -14,7 +57,7 @@ void handle_input_feed(char *input, void *data1, void *data2)
 	if (!cmd)
 		return;
 
-	if (!strcmp(cmd, "feed")){
+	if (!strcmp(cmd, "feed")) {
 		cmd = strtok(NULL, "\n ");
 		unsigned int a = get_user_id(cmd);
 		cmd = strtok(NULL, "\n");
@@ -26,39 +69,37 @@ void handle_input_feed(char *input, void *data1, void *data2)
 				break;
 			}
 			post_info_t *post_info = ((tree_t *)(post->data))->info;
-			if(is_friend(social_media, a, post_info->user_id) || a == post_info->user_id){
-				if(post_info->title){
+			if(post_info->title)
+				if(a == post_info->user_id || is_friend(social_media, a, post_info->user_id)) {
 					printf("%s: %s\n", get_user_name(post_info->user_id), post_info->title);
 					feed_size--;
 				}
-			}
 			latest_post_id--;
 		}
-	} else if (!strcmp(cmd, "view-profile")){
-		
-		
-	}
-	else if (!strcmp(cmd, "friends-repost")) {
+	} else if (!strcmp(cmd, "view-profile")) {
+		cmd = strtok(NULL, "\n ");
+		search_user_posts(posts->root, get_user_id(cmd));
+	} else if (!strcmp(cmd, "friends-repost")) {
 		cmd = strtok(NULL, "\n ");
 		unsigned int a = get_user_id(cmd);
 		cmd = strtok(NULL, "\n");
 		unsigned int b = atoi(cmd);
 		node_t *cr = ((tree_t *)posts->root->data)->sons->head;
-		node_t *that_post = NULL;
+		node_t *post = NULL;
 		while(cr) {
 			if(((tree_t *)cr->data)->info->id == b) {
-				that_post = cr;
+				post = cr;
 				break;
 			}
 			cr = cr->next;
 		}
-		if(!that_post) {
+		if(!post) {
 			printf("No such post\n");
 			// exit(1);
 			free(commands);
 			return;
 		}
-		cr = ((tree_t *)that_post->data)->sons->head;
+		cr = ((tree_t *)post->data)->sons->head;
 		while(cr) {
 			post_info_t *post_info = ((tree_t *)(cr->data))->info;
 			if(is_friend(social_media, a, post_info->user_id)) {

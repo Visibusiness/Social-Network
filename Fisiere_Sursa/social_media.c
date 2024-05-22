@@ -68,7 +68,6 @@ int main(void)
 		free_graph(social_media);
 		free(social_media);
 	
-
 	//TODO: free(posts)
 
 		free_all_post(posts);
