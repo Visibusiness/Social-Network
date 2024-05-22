@@ -123,20 +123,20 @@
 ./feed.c:47: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./feed.c:48: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./feed.c:66: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:67: CHECK:LONG_LINE: line length of 90 exceeds 80 columns
+./feed.c:68: CHECK:LONG_LINE: line length of 91 exceeds 80 columns
 ./feed.c:68: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:68: WARNING:BRACES: braces {} are not necessary for single statement blocks
-./feed.c:72: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:73: CHECK:LONG_LINE: line length of 95 exceeds 80 columns
-./feed.c:73: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:74: CHECK:LONG_LINE: line length of 92 exceeds 80 columns
-./feed.c:89: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:90: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:96: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:103: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:105: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:105: WARNING:BRACES: braces {} are not necessary for single statement blocks
-./feed.c:113: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+./feed.c:69: CHECK:LONG_LINE: line length of 88 exceeds 80 columns
+./feed.c:72: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./feed.c:77: CHECK:LONG_LINE_COMMENT: line length of 90 exceeds 80 columns
+./feed.c:83: CHECK:LONG_LINE_COMMENT: line length of 95 exceeds 80 columns
+./feed.c:84: CHECK:LONG_LINE_COMMENT: line length of 92 exceeds 80 columns
+./feed.c:99: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:100: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:106: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:113: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:115: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:115: WARNING:BRACES: braces {} are not necessary for single statement blocks
+./feed.c:123: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
 ./social_media.c:51: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:70: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:75: ERROR:TRAILING_WHITESPACE: trailing whitespace

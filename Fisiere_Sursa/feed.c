@@ -62,6 +62,16 @@ void handle_input_feed(char *input, void *data1, void *data2)
 		unsigned int a = get_user_id(cmd);
 		cmd = strtok(NULL, "\n");
 		int feed_size = atoi(cmd);
+		node_t *cr = ((tree_t *)(posts->root->data))->sons->head;
+		while(feed_size && cr) {
+			post_info_t *post_info = ((tree_t *)(cr->data))->info;
+			if(a == post_info->user_id || is_friend(social_media, a, post_info->user_id)) {
+				printf("%s: %s\n", get_user_name(post_info->user_id), post_info->title);
+				feed_size--;
+			}
+			cr=cr->next;
+		}
+		/*
 		unsigned int latest_post_id = posts->nr_posts - 1;
 		while(feed_size) {
 			node_t *post = find_node_in_tree(posts->root, latest_post_id, latest_post_id);
@@ -75,7 +85,7 @@ void handle_input_feed(char *input, void *data1, void *data2)
 					feed_size--;
 				}
 			latest_post_id--;
-		}
+		}*/
 	} else if (!strcmp(cmd, "view-profile")) {
 		cmd = strtok(NULL, "\n ");
 		search_user_posts(posts->root, get_user_id(cmd));
