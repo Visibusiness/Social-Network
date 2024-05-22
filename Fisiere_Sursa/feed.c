@@ -58,7 +58,7 @@ void handle_input_feed(char *input, void *data1, void *data2)
 			free(commands);
 			return;
 		}
-		node_t *cr = ((tree_t *)that_post->data)->sons->head;
+		cr = ((tree_t *)that_post->data)->sons->head;
 		while(cr) {
 			post_info_t *post_info = ((tree_t *)(cr->data))->info;
 			if(is_friend(social_media, a, post_info->user_id)) {
