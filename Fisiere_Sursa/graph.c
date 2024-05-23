@@ -211,6 +211,61 @@ unsigned int most_popular_friend(graph_t *x, unsigned int a)
     return friend;
 }
 
+int is_friend_with_all(graph_t *x, unsigned int *state, unsigned int id)
+{
+    for(unsigned int i=0; i<x->nodes; i++)
+        if(state[i] == 1 && !is_friend(x, i, id))
+            return 0;
+    return 1;
+}
+
+clique_t *new_clique(unsigned int nodes)
+{
+    clique_t *x = malloc(sizeof(clique_t));
+    x->size = 0;
+    x->state = calloc(nodes, sizeof(int));
+    return x;
+}
+
+void free_clique(clique_t **x)
+{
+    free((*x)->state);
+    free(*x);
+}
+
+void backt(graph_t *x, clique_t *cr, clique_t *maximal, unsigned int id)
+{
+    if(id >= x->nodes) {
+        if(cr->size > maximal->size) {
+            for(unsigned int i=0; i<x->nodes; i++)
+                maximal->state[i] = cr->state[i];
+            maximal->size = cr->size;
+        }
+        return;
+    }
+    if(cr->state[id] == 0 && is_friend_with_all(x, cr->state, id)) {
+        cr->state[id] = 1;
+        cr->size++;
+        backt(x, cr, maximal, id + 1);
+        cr->size--;
+        cr->state[id] = 0;
+    }
+    backt(x, cr, maximal, id + 1);
+}
+
+clique_t *maximal_clique(graph_t *x, unsigned int id)
+{
+    clique_t *cr = new_clique(x->nodes);
+    clique_t *maximal = new_clique(x->nodes);
+    /// 0 ~ not used; 1 ~ used
+    cr->state[id] = 1;
+    cr->size = 1;
+    backt(x, cr, maximal, 0);
+    free_clique(&cr);
+    return maximal;
+}
+
+
 post_info_t *new_post_info(unsigned int id, unsigned int user_id, char *title)
 {
     post_info_t *x = malloc(sizeof(post_info_t));

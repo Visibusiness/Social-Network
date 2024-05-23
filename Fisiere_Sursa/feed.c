@@ -43,8 +43,14 @@ void search_user_posts(node_t *root, unsigned int user_id)
 		char *title = ((tree_t*)(cr->data))->info->title;
 		if(((tree_t*)(cr->data))->info->user_id == user_id)
 			printf("Posted: %s\n", title);
-        search_user_reposts(cr, user_id, title);
         cr = cr->prev;
+    }
+
+	cr = ((tree_t*)(root->data))->sons->head;
+	while(cr) {
+		char *title = ((tree_t*)(cr->data))->info->title;
+        search_user_reposts(cr, user_id, title);
+        cr = cr->next;
     }
 }
 
@@ -56,7 +62,6 @@ void handle_input_feed(char *input, void *data1, void *data2)
 	all_posts_t *posts = (all_posts_t *)data2;
 	if (!cmd)
 		return;
-
 	if (!strcmp(cmd, "feed")) {
 		cmd = strtok(NULL, "\n ");
 		unsigned int a = get_user_id(cmd);
@@ -71,21 +76,6 @@ void handle_input_feed(char *input, void *data1, void *data2)
 			}
 			cr=cr->next;
 		}
-		/*
-		unsigned int latest_post_id = posts->nr_posts - 1;
-		while(feed_size) {
-			node_t *post = find_node_in_tree(posts->root, latest_post_id, latest_post_id);
-			if(!post) {
-				break;
-			}
-			post_info_t *post_info = ((tree_t *)(post->data))->info;
-			if(post_info->title)
-				if(a == post_info->user_id || is_friend(social_media, a, post_info->user_id)) {
-					printf("%s: %s\n", get_user_name(post_info->user_id), post_info->title);
-					feed_size--;
-				}
-			latest_post_id--;
-		}*/
 	} else if (!strcmp(cmd, "view-profile")) {
 		cmd = strtok(NULL, "\n ");
 		search_user_posts(posts->root, get_user_id(cmd));
@@ -108,9 +98,15 @@ void handle_input_feed(char *input, void *data1, void *data2)
 			}
 			cr = cr->next;
 		}
-	} else if (!strcmp(cmd, "common-groups")) {
-		// TODO: Add function
-
+	} else if (!strcmp(cmd, "common-group")) {
+		cmd = strtok(NULL, "\n ");
+		unsigned int a = get_user_id(cmd);
+		clique_t *x = maximal_clique(social_media, a);
+		printf("The closest friend group of %s is:\n", cmd);
+		for(unsigned int i=0; i<social_media->nodes; i++)
+			if(x->state[i])
+				printf("%s\n", get_user_name(i));
+		free_clique(&x);
 	}
 
 	free(commands);

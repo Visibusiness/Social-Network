@@ -5,6 +5,7 @@
 typedef struct node_t node_t;
 typedef struct list_t list_t;
 typedef struct graph_t graph_t;
+typedef struct clique_t clique_t;
 
 typedef struct like_t like_t;
 typedef struct post_info_t post_info_t;
@@ -26,6 +27,12 @@ struct graph_t {
     list_t **friends;
 };
 
+struct clique_t {
+    unsigned int size;
+    unsigned int *state;
+};
+
+
 void free_node(node_t **x);
 node_t *new_node(void *data);
 node_t *remove_from_list(list_t *list, unsigned int searched);
@@ -44,6 +51,12 @@ void maybe_good_suggestions(graph_t *x, unsigned int a, unsigned int *good_sugge
 unsigned int *suggestions(graph_t *x, unsigned int a);
 unsigned int *common_friends(graph_t *x, unsigned int a, unsigned int b);
 unsigned int most_popular_friend(graph_t *x, unsigned int a);
+
+void free_clique(clique_t **x);
+clique_t *new_clique(unsigned int nodes);
+void backt(graph_t *x, clique_t *cr, clique_t *maximal, unsigned int id);
+clique_t *maximal_clique(graph_t *x, unsigned int a);
+
 
 struct like_t {
     unsigned int id;

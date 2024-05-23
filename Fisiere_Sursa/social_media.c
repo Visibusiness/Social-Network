@@ -65,13 +65,11 @@ int main(void)
 	free_users();
 	free(input);
 
-		free_graph(social_media);
-		free(social_media);
+	free_graph(social_media);
+	free(social_media);
 	
-	//TODO: free(posts)
-
-		free_all_post(posts);
-		free(posts);
+	free_all_post(posts);
+	free(posts);
 	
 	return 0;
 
