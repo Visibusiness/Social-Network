@@ -193,25 +193,27 @@
 ./feed.c:47: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./feed.c:49: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
 ./feed.c:50: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:51: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
-./feed.c:52: ERROR:CODE_INDENT: code indent should use tabs where possible
-./feed.c:52: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./feed.c:53: ERROR:CODE_INDENT: code indent should use tabs where possible
-./feed.c:53: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./feed.c:54: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./feed.c:71: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:73: CHECK:LONG_LINE: line length of 91 exceeds 80 columns
-./feed.c:73: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:74: CHECK:LONG_LINE: line length of 88 exceeds 80 columns
-./feed.c:77: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
-./feed.c:87: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:94: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:96: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:96: WARNING:BRACES: braces {} are not necessary for single statement blocks
-./feed.c:106: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
-./feed.c:106: ERROR:SPACING: spaces required around that '<' (ctx:VxV)
-./feed.c:106: ERROR:SPACING: space required before the open parenthesis '('
-./feed.c:107: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:51: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./feed.c:53: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:54: ERROR:POINTER_LOCATION: "(foo*)" should be "(foo *)"
+./feed.c:55: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:55: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:56: ERROR:CODE_INDENT: code indent should use tabs where possible
+./feed.c:56: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:57: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./feed.c:74: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:76: CHECK:LONG_LINE: line length of 91 exceeds 80 columns
+./feed.c:76: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:77: CHECK:LONG_LINE: line length of 88 exceeds 80 columns
+./feed.c:80: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./feed.c:90: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:97: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:99: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:99: WARNING:BRACES: braces {} are not necessary for single statement blocks
+./feed.c:109: ERROR:SPACING: spaces required around that '=' (ctx:VxV)
+./feed.c:109: ERROR:SPACING: spaces required around that '<' (ctx:VxV)
+./feed.c:109: ERROR:SPACING: space required before the open parenthesis '('
+./feed.c:110: ERROR:SPACING: space required before the open parenthesis '('
 ./social_media.c:51: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:70: ERROR:TRAILING_WHITESPACE: trailing whitespace
 ./social_media.c:73: ERROR:TRAILING_WHITESPACE: trailing whitespace

@@ -47,10 +47,13 @@ void search_user_posts(node_t *root, unsigned int user_id)
     }
 
 	cr = ((tree_t*)(root->data))->sons->head;
+	while(cr->next)
+		cr=cr->next;
+
 	while(cr) {
 		char *title = ((tree_t*)(cr->data))->info->title;
         search_user_reposts(cr, user_id, title);
-        cr = cr->next;
+        cr = cr->prev;
     }
 }
 
