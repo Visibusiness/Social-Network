@@ -1,0 +1,36 @@
+# Tema 3 - Structuri de Date și Algoritmi
+### Popa Filip-Andrei ~ 313CA
+### 313CAb 2023-2024 ----- Moodle id:
+### Vișănescu Bogdan-Emilian ~ 313CA
+### 313CAb 2023-2024 ----- Moodle id: 
+#
+
+# Descriere
+## Tema 3 constă în implementarea a trei taskuri diferite:
+
+## Task 1 (Rețea de prietenie):
+Am implementat rețeaua de prieteni folosind o structura de graf, care conține un vector de liste dublu înlănțuite, câte una pentru fiecare nod din graf. Lista cu indecele i va conține nodurile j cu proprietatea că exista muchie între nodul i si nodul j.
+Pentru comenzile primite facem următoarele:
+* pentru "add"/"remove": adăugam/ștergem o muchie în/din graf (adica introducem/scoatem nodul i in lista cu ordinul j  si nodul j in lista cu ordinul i)
+* pentru "suggestions": căutăm vecinii vecinilor care nu sunt vecini ai unui nod cu indexul dat
+* pentru "common": căutăm vecinii comuni ale două noduri
+* pentru "friends": calculăm numărul de vecini ai unui nod, adică dimensiunea listei din structura de graf cu indexul nodului
+* pentru "popular": calculăm numărul de vecini ai vecinilor unui nod dat
+* pentru "distance": am implementat funcția get_distance(), care calculează distanța dintre 2 noduri din graf și este implementată astfel: 
+    1. Considerăm vectorul in_use[], care va funcționa precum o coadă (adugăm pe poziția last și primul element adugat va fi pe poziția first). Coada este considerată ca fiind goală când first>last. La început, coada conține doar nodul din care începem parcurgerea.
+    2. Considerăm vectorul distance[], adică distanța de la nodul inițial la fiecare nod al grafului. (cu convenția că distance[x]=0 dacă si nu mai dacă nodul x nu a fost încă vizitat).
+    3. Parcurgem în lățime graful: scoatem un nod din coadă și ii adăugăm toți vecinii nevizitați. Distanța de la nodul inițial la vecini va fi cu 1 mai mare decât distanța până la nodul scos.
+    4. Ne oprim când dăm de nodul căutat sau când coada este goală, adică tot graful a fost parcurs fără a găsi nodul căutat, caz în care nu există drum între cele două noduri.
+
+## Task 2 (Postări și reposturi):
+Structura de postări este implementată ca un arbore al cărui rădăcină este un nod fictiv, denumit posts->root. Postările vor fi fii direcți ai nodului root, în timp ce repostările sunt nepoții nodurilor care reprezintă postări.
+    
+Arborele este implementat astfel: pentru fiecare nod, câmpul node->data este o structură denumită din lipsă de inspirație tree_t, care conține: informațiile referitoare la postare, un pointer către nodul tată din arbore și o listă de pointeri la nodurile care sunt fii direcți în arbore.
+
+Pentru comenzile primite facem următoarele:
+* pentru "create": adăugam un fiu nodului root
+* pentru "repost": căutăm nodul cu id-ul dat și îi adăugam un fiu
+* pentru "repost":
+
+* pentru "distance": am implementat funcția get_distance
+   1. Considerăm vectorul in_use[], care va funcționa pre
