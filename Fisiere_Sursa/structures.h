@@ -46,7 +46,7 @@ list_t *ll_create(unsigned int data_size);
 void ll_free(list_t **pp_list);
 
 graph_t *new_graph(unsigned int nodes);
-void free_graph(graph_t *x);
+void free_graph(graph_t **x);
 void add_connection(graph_t *x, unsigned int a, unsigned int b);
 void remove_connection(graph_t *x, unsigned int a, unsigned int b);
 int get_distance(graph_t *x, unsigned int a, unsigned int b);
@@ -107,6 +107,6 @@ void find_most_liked_id(node_t *post, unsigned int *cr_max,
 void remove_repost(list_t *list, node_t *post);
 void free_post_info(post_info_t **info);
 void free_post(node_t **post);
-void free_all_post(all_posts_t *posts);
+void free_all_post(all_posts_t **posts);
 
 int is_friend(graph_t *x, unsigned int a, unsigned int b);

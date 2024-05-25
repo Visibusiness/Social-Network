@@ -4,18 +4,13 @@
 
 #include "friends.h"
 #include "users.h"
-#include "graph.h"
+#include "structures.h"
 
 void handle_input_friends(char *input, void *data)
 {
 	graph_t *social_media = (graph_t *)data;
-	if (!social_media)
-		return;
 
 	char *commands = strdup(input);
-	if (!commands)
-		return;
-
 	char *cmds = strtok(commands, "\n ");
 	char *cmd = strdup(cmds);
 
@@ -27,8 +22,7 @@ void handle_input_friends(char *input, void *data)
 	uint16_t b = 0;
 
 	if (!strcmp(cmd, "add") || !strcmp(cmd, "distance") ||
-		!strcmp(cmd, "remove") || !strcmp(cmd, "common"))
-	{
+		!strcmp(cmd, "remove") || !strcmp(cmd, "common")) {
 		cmds = strtok(NULL, "\n ");
 		name2 = strdup(cmds);
 		b = get_user_id(name2);
@@ -39,8 +33,7 @@ void handle_input_friends(char *input, void *data)
 		add_connection(social_media, a, b);
 		printf("Added connection %s - %s\n", name1, name2);
 	} else if (!strcmp(cmd, "distance")) {
-		int distance = -1;
-		distance = get_distance(social_media, a, b) - 1;
+		int distance = get_distance(social_media, a, b);
 		if (distance != -1)
 			printf("The distance between %s - %s is %d\n",
 				   name1, name2, distance);
@@ -50,10 +43,8 @@ void handle_input_friends(char *input, void *data)
 		unsigned int *v = suggestions(social_media, a);
 		int there_are_suggestions = 0;
 		for (unsigned int i = 0; i < social_media->nodes; i++)
-			if (v[i])
-			{
-				if (!there_are_suggestions)
-				{
+			if (v[i]) {
+				if (!there_are_suggestions) {
 					printf("Suggestions for %s:\n", name1);
 					there_are_suggestions = 1;
 				}
@@ -69,10 +60,8 @@ void handle_input_friends(char *input, void *data)
 		unsigned int *v = common_friends(social_media, a, b);
 		int there_are_friends = 0;
 		for (unsigned int i = 0; i < social_media->nodes; i++)
-			if (v[i] == 2)
-			{
-				if (!there_are_friends)
-				{
+			if (v[i] == 2) {
+				if (!there_are_friends) {
 					printf("The common friends between %s and %s are:\n",
 						   name1, name2);
 					there_are_friends = 1;

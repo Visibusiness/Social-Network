@@ -1,2 +1,0 @@
-./posts.c:171: WARNING:LONG_FUNCTION: 'handle_input_posts' function definition is 142 lines, perhaps refactor
-./friends.c:100: WARNING:LONG_FUNCTION: 'handle_input_friends' function definition is 90 lines, perhaps refactor

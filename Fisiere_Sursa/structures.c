@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "structures.h"
 
 node_t *new_node(void *data)
 {
@@ -19,8 +19,6 @@ void link(node_t *x, node_t *y)
 {
 	if (x)
 		x->next = y;
-	else
-		printf("linkinginginging aiurea\n");
 	if (y)
 		y->prev = x;
 }
@@ -43,14 +41,11 @@ void add_in_list(list_t *list, node_t *node)
 node_t *remove_from_list(list_t *list, unsigned int searched)
 {
 	node_t *cr = list->head;
-	while (cr)
-	{
-		if (*(unsigned int *)cr->data == searched)
-		{
-			if (cr != list->head)
+	while (cr) {
+		if (*(unsigned int *)cr->data == searched) {
+			if (cr != list->head) {
 				link(cr->prev, cr->next);
-			else
-			{
+			} else {
 				list->head = cr->next;
 				if (list->head)
 					list->head->prev = NULL;
@@ -68,8 +63,7 @@ void ll_free(list_t **pp_list)
 	if (!pp_list || !*pp_list)
 		return;
 	node_t *cr = (*pp_list)->head, *next;
-	while (cr)
-	{
+	while (cr) {
 		next = cr->next;
 		free(cr->data);
 		free(cr);
@@ -89,11 +83,12 @@ graph_t *new_graph(unsigned int nodes)
 	return x;
 }
 
-void free_graph(graph_t *x)
+void free_graph(graph_t **x)
 {
-	for (unsigned int i = 0; i < x->nodes; i++)
-		ll_free(&x->friends[i]);
-	free(x->friends);
+	for (unsigned int i = 0; i < (*x)->nodes; i++)
+		ll_free(&(*x)->friends[i]);
+	free((*x)->friends);
+	free(*x);
 }
 
 void add_connection(graph_t *x, unsigned int a, unsigned int b)
@@ -116,34 +111,27 @@ void remove_connection(graph_t *x, unsigned int a, unsigned int b)
 
 int get_distance(graph_t *x, unsigned int a, unsigned int b)
 {
-	if (a == b)
-		return 1;
-
 	unsigned int *distance = calloc(x->nodes, sizeof(unsigned int));
 	unsigned int *in_use = calloc(x->nodes, sizeof(unsigned int));
 	unsigned int first = 0, last = 0;
-	int must_return = 0;
+	int must_return = -1;
 	in_use[0] = a;
 	distance[a] = 1;
 
-	while (first <= last)
-	{
+	while (first <= last) {
 		unsigned int cr = in_use[first];
 		node_t *node = x->friends[cr]->head;
-		while (node)
-		{
+		while (node) {
 			unsigned int neighbour = *(unsigned int *)node->data;
-			if (neighbour == b)
-			{
-				must_return = distance[cr] + 1;
+			if (neighbour == b) {
+				must_return = distance[cr];
 				first = last;
-				node = NULL;
+				break;
 			} else if (distance[neighbour] == 0) {
 				distance[neighbour] = distance[cr] + 1;
 				in_use[++last] = neighbour;
 			}
-			if (node)
-				node = node->next;
+			node = node->next;
 		}
 		first++;
 	}
@@ -468,9 +456,10 @@ void free_post(node_t **post)
 	*post = NULL;
 }
 
-void free_all_post(all_posts_t *posts)
+void free_all_post(all_posts_t **posts)
 {
-	free_post(&posts->root);
+	free_post(&(*posts)->root);
+	free(*posts);
 }
 
 int is_friend(graph_t *x, unsigned int a, unsigned int b)
