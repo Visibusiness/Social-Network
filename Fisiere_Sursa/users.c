@@ -9,7 +9,7 @@ static const char *db_path = "users.db";
 static char **users;
 static uint16_t users_number;
 
-uint16_t get_users_number()
+uint16_t get_users_number(void)
 {
 	return users_number;
 }
@@ -18,7 +18,8 @@ void init_users(void)
 {
 	FILE *users_db = fopen(db_path, "r");
 
-	if (!users_db) {
+	if (!users_db)
+	{
 		perror("Error reading users.db");
 		return;
 	}
@@ -28,7 +29,8 @@ void init_users(void)
 	users = malloc(users_number * sizeof(char *));
 
 	char temp[32];
-	for (uint16_t i = 0; i < users_number; i++) {
+	for (uint16_t i = 0; i < users_number; i++)
+	{
 		fscanf(users_db, "%s", temp);
 		int size = strlen(temp);
 

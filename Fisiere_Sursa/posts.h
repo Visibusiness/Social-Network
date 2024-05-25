@@ -5,7 +5,7 @@
  * Function that handles the calling of every command from task 2
  *
  * Please add any necessary parameters to the functions
-*/
+ */
 void handle_input_posts(char *input, void *data);
 
 #endif // POSTS_H
