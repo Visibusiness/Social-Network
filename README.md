@@ -37,7 +37,7 @@ Pentru comenzile primite facem următoarele:
 * pentru "get-likes": apelăm funcția get_likes() care parcurge lista precizată anterior și calculează doar numărul de like-uri (nu și de dislike-uri).
 * pentru "ratio": apelăm funcția find_most_liked_id() care parcurge subarborele care reprezintă repostările postării căruia ni se dă id-ul și calculează pentru fiecare repostare numărul de likeuri, apoi updatează most_likes și most_liked_id dacă este cazul.
 
-## Task 3 (Social Media):
+## Task 3 (Social Media)
 Acest task se bazează pe structurile implementate la celelalte două taskuri.
 
 Comenzile sunt următoarele:
