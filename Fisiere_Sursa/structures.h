@@ -12,26 +12,22 @@ typedef struct post_info_t post_info_t;
 typedef struct tree_t tree_t;
 typedef struct all_posts_t all_posts_t;
 
-struct node_t
-{
+struct node_t {
 	void *data;
 	node_t *prev, *next;
 };
 
-struct list_t
-{
+struct list_t {
 	node_t *head;
 	unsigned int size;
 };
 
-struct graph_t
-{
+struct graph_t {
 	unsigned int nodes;
 	list_t **friends;
 };
 
-struct clique_t
-{
+struct clique_t {
 	unsigned int size;
 	unsigned int *state;
 };
@@ -58,32 +54,29 @@ unsigned int most_popular_friend(graph_t *x, unsigned int a);
 
 void free_clique(clique_t **x);
 clique_t *new_clique(unsigned int nodes);
-void backt(graph_t *x, clique_t *cr, clique_t *maximal, unsigned int id);
+void backtracking_clique(graph_t *x, clique_t *cr,
+						 clique_t *maximal, unsigned int id);
 clique_t *maximal_clique(graph_t *x, unsigned int a);
 
-struct like_t
-{
+struct like_t {
 	unsigned int id;
 	int like;
 };
 
-struct post_info_t
-{
+struct post_info_t {
 	unsigned int id;
 	unsigned int user_id;
 	char *title;
 	list_t *likes;
 };
 
-struct tree_t
-{
+struct tree_t {
 	node_t *parent;
 	post_info_t *info;
 	list_t *sons;
 };
 
-struct all_posts_t
-{
+struct all_posts_t {
 	int nr_posts;
 	node_t *root;
 };

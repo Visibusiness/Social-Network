@@ -228,7 +228,8 @@ void free_clique(clique_t **x)
 	free(*x);
 }
 
-void backt(graph_t *x, clique_t *cr, clique_t *maximal, unsigned int id)
+void backtracking_clique(graph_t *x, clique_t *cr,
+						 clique_t *maximal, unsigned int id)
 {
 	if (id >= x->nodes) {
 		if (cr->size > maximal->size) {
@@ -241,11 +242,11 @@ void backt(graph_t *x, clique_t *cr, clique_t *maximal, unsigned int id)
 	if (cr->state[id] == 0 && is_friend_with_all(x, cr->state, id)) {
 		cr->state[id] = 1;
 		cr->size++;
-		backt(x, cr, maximal, id + 1);
+		backtracking_clique(x, cr, maximal, id + 1);
 		cr->size--;
 		cr->state[id] = 0;
 	}
-	backt(x, cr, maximal, id + 1);
+	backtracking_clique(x, cr, maximal, id + 1);
 }
 
 clique_t *maximal_clique(graph_t *x, unsigned int id)
@@ -255,7 +256,7 @@ clique_t *maximal_clique(graph_t *x, unsigned int id)
 	/// 0 ~ not used; 1 ~ used
 	cr->state[id] = 1;
 	cr->size = 1;
-	backt(x, cr, maximal, 0);
+	backtracking_clique(x, cr, maximal, 0);
 	free_clique(&cr);
 	return maximal;
 }
