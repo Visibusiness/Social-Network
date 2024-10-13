@@ -1,52 +1,49 @@
-# Tema 3 - Structuri de Date și Algoritmi
 ### Popa Filip-Andrei & Vișănescu Bogdan-Emilian
 ### ~ 313CAb 2023-2024 ~
-```
-Echipa tema 3 SD:
-filip_andrei.popa
-bogdan.visanescu
-```
 
-## Tema constă în implementarea a trei taskuri diferite:
-## Task 1 (Rețea de prietenie):
-Am implementat rețeaua de prieteni folosind o structura de graf, care conține un vector de liste dublu înlănțuite, câte una pentru fiecare nod din graf. Lista cu indecele i va conține nodurile j cu proprietatea că exista muchie între nodul i si nodul j.
-Pentru comenzile primite facem următoarele:
-* pentru "add"/"remove": adăugam/ștergem o muchie în/din graf (adica introducem/scoatem nodul i in lista cu ordinul j  si nodul j in lista cu ordinul i)
-* pentru "suggestions": căutăm vecinii vecinilor care nu sunt vecini ai unui nod cu indexul dat
-* pentru "common": căutăm vecinii comuni ale două noduri
-* pentru "friends": calculăm numărul de vecini ai unui nod, adică dimensiunea listei din structura de graf cu indexul nodului
-* pentru "popular": calculăm numărul de vecini ai vecinilor unui nod dat
-* pentru "distance": am implementat funcția get_distance(), care calculează distanța dintre 2 noduri din graf și este implementată astfel:
+## The project consists of implementing three different tasks:
+
+### Task 1 (Friendship Network):
+We implemented the friendship network using a graph structure, which contains a vector of doubly linked lists, one for each node in the graph. The list at index `i` will contain the nodes `j` for which there is an edge between node `i` and node `j`.
+
+For the received commands, we do the following:
+* For "add"/"remove": we add/remove an edge in/from the graph (i.e., we insert/remove node `i` in the list at position `j` and node `j` in the list at position `i`).
+* For "suggestions": we search for the neighbors of the neighbors that are not already neighbors of a node with the given index.
+* For "common": we find the common neighbors of two nodes.
+* For "friends": we calculate the number of neighbors of a node, i.e., the size of the list in the graph structure at the index of the node.
+* For "popular": we calculate the number of neighbors of the neighbors of a given node.
+* For "distance": I implemented the `get_distance()` function, which calculates the distance between two nodes in the graph, and it is implemented as follows:
     ```
-    1. Considerăm vectorul in_use[], care va funcționa precum o coadă (adugăm pe poziția last și primul element adugat va fi pe poziția first). Coada este considerată ca fiind goală când first>last. La început, coada conține doar nodul din care începem parcurgerea.
-    2. Considerăm vectorul distance[], adică distanța de la nodul inițial la fiecare nod al grafului. (cu convenția că distance[x]=0 dacă si nu mai dacă nodul x nu a fost încă vizitat).
-    3. Parcurgem în lățime graful: scoatem un nod din coadă și ii adăugăm toți vecinii nevizitați. Distanța de la nodul inițial la vecini va fi cu 1 mai mare decât distanța până la nodul scos.
-    4. Ne oprim când dăm de nodul căutat sau când coada este goală, adică tot graful a fost parcurs fără a găsi nodul căutat, caz în care nu există drum între cele două noduri.
-
-## Task 2 (Postări și reposturi):
-Structura de postări este implementată ca un arbore al cărui rădăcină este un nod fictiv, denumit posts->root. Postările vor fi fii direcți ai nodului root, în timp ce repostările sunt nepoții nodurilor care reprezintă postări.
-    
-Arborele este implementat astfel: pentru fiecare nod, câmpul node->data este o structură denumită din lipsă de inspirație tree_t, care conține: informațiile referitoare la postare, un pointer către nodul tată din arbore și o listă de pointeri la nodurile care sunt fii direcți în arbore.
-
-Pentru comenzile primite facem următoarele:
-* pentru "create": adăugam un fiu nodului root.
-* pentru "repost": căutăm nodul cu id-ul dat și îi adăugam un fiu.
-* pentru "delete": căutăm nodul cu id-ul dat și îl ștergem din arbore.
-* pentru "get-reposts": apelăm funcția get_reposts() care parcurgere arborele în preordine, plecând din nodul cu id-ul dat.
-* pentru "like": căutăm nodul cu id-ul dat în arbore și îi adăugam un like în lista post_info->like, care conține noduri de tip like_t, care rețin id-urile celor care au dat like/dislike și dacă au dat like sau dislike.
-* pentru "get-likes": apelăm funcția get_likes() care parcurge lista precizată anterior și calculează doar numărul de like-uri (nu și de dislike-uri).
-* pentru "ratio": apelăm funcția find_most_liked_id() care parcurge subarborele care reprezintă repostările postării căruia ni se dă id-ul și calculează pentru fiecare repostare numărul de likeuri, apoi updatează most_likes și most_liked_id dacă este cazul.
-
-## Task 3 (Social Media)
-Acest task se bazează pe structurile implementate la celelalte două taskuri.
-
-Comenzile sunt următoarele:
-* "feed": parcurgere toate postările care nu sunt reposturi (adică fii direcți ai nodului root) și le afișează pe primele feed_size care sunt postate de prieteni ai utilizatorului cu id-ul dat.
-* "view-profile": parcurge toate postările și repostările și le afișează pe cele facute de utilizatorului cu id-ul dat.
-* "friend-repost": caută toate repostările unei postări și le afișează pe cele facute de prietenii utilizatorul cu id-ul dat.
-* "common-group": apelează funcția maximal_clique(), care:
+    1. We consider the `in_use[]` vector, which will function as a queue (we add at the `last` position, and the first element added will be at the `first` position). The queue is considered empty when `first > last`. Initially, the queue contains only the node from which the traversal starts.
+    2. We consider the `distance[]` vector, which represents the distance from the initial node to each node in the graph (with the convention that `distance[x] = 0` if and only if node `x` has not yet been visited).
+    3. We traverse the graph in breadth-first order: we remove a node from the queue and add all its unvisited neighbors. The distance from the initial node to the neighbors will be 1 greater than the distance to the removed node.
+    4. We stop when we reach the target node or when the queue is empty, meaning the entire graph has been traversed without finding the target node, in which case no path exists between the two nodes.
     ```
-    1. pleacă cu o mulțime care conține doat utilizatorul cu id-ul dat;
-    2. folosind cilque_backtracking() adaugă sau nu un utilizator în mulțimea curentă, iar adăugare are loc doar dacă el este prieten cu toți ceilalți utilizatori din mulțimea curentă;
-    3. după ce am parcurs toți utilizatorii, am generat o clică validă, deci o actualizăm pe cea maximă dacă este cazul.
+
+### Task 2 (Posts and Reposts):
+The structure of the posts is implemented as a tree whose root is a fictitious node called `posts->root`. The posts will be direct children of the root node, while reposts are the grandchildren of the nodes representing posts.
+
+The tree is implemented as follows: for each node, the field `node->data` is a structure (named `tree_t` for lack of inspiration) that contains the information related to the post, a pointer to the parent node in the tree, and a list of pointers to the nodes that are direct children in the tree.
+
+For the received commands, we do the following:
+* For "create": we add a child to the root node.
+* For "repost": we search for the node with the given ID and add a child to it.
+* For "delete": we search for the node with the given ID and remove it from the tree.
+* For "get-reposts": we call the `get_reposts()` function, which traverses the tree in preorder, starting from the node with the given ID.
+* For "like": we search for the node with the given ID in the tree and add a like to it in the list `post_info->like`, which contains nodes of type `like_t`, that store the IDs of those who liked/disliked the post and whether they liked or disliked it.
+* For "get-likes": we call the `get_likes()` function, which traverses the previously mentioned list and calculates only the number of likes (not dislikes).
+* For "ratio": we call the `find_most_liked_id()` function, which traverses the subtree representing the reposts of the post with the given ID and calculates the number of likes for each repost, then updates `most_likes` and `most_liked_id` if necessary.
+
+### Task 3 (Social Media):
+This task is based on the structures implemented in the previous two tasks.
+
+The commands are as follows:
+* "feed": it traverses all the posts that are not reposts (i.e., direct children of the root node) and displays the first `feed_size` posts made by friends of the user with the given ID.
+* "view-profile": it traverses all posts and reposts and displays the ones made by the user with the given ID.
+* "friend-repost": it searches all the reposts of a post and displays those made by friends of the user with the given ID.
+* "common-group": it calls the `maximal_clique()` function, which:
+    ```
+    1. starts with a set containing only the user with the given ID;
+    2. using `clique_backtracking()`, it adds or doesn't add a user to the current set, and the addition occurs only if the user is friends with all other users in the current set;
+    3. after all users have been traversed, a valid clique is generated, and we update the maximal clique if necessary.
     ```
