@@ -168,6 +168,3 @@ Indexing will start from 1.
 `repost name post-id [repost-id]`
 
 Creates a repost of an existing post. If the `repost` command includes a repost id, then it is considered a repost of a repost.
-
-...
-
